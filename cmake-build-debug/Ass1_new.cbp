@@ -89,19 +89,10 @@
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Agent.h">
 			<Option target="Ass1_new"/>
 		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Graph.cpp">
-			<Option target="Ass1_new"/>
-		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Graph.h">
 			<Option target="Ass1_new"/>
 		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Session.cpp">
-			<Option target="Ass1_new"/>
-		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Session.h">
-			<Option target="Ass1_new"/>
-		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Tree.cpp">
 			<Option target="Ass1_new"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/include/Tree.h">
@@ -111,6 +102,15 @@
 			<Option target="Ass1_new"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/src/Agent.cpp">
+			<Option target="Ass1_new"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/src/Graph.cpp">
+			<Option target="Ass1_new"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/src/Session.cpp">
+			<Option target="Ass1_new"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/src/Tree.cpp">
 			<Option target="Ass1_new"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass1-new/src/main.cpp">
