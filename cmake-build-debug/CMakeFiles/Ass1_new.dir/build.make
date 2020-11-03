@@ -103,61 +103,61 @@ CMakeFiles/Ass1_new.dir/src/Agent.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/src/Agent.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/src/Agent.cpp -o CMakeFiles/Ass1_new.dir/src/Agent.cpp.s
 
-CMakeFiles/Ass1_new.dir/include/Graph.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
-CMakeFiles/Ass1_new.dir/include/Graph.cpp.o: ../include/Graph.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Ass1_new.dir/include/Graph.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/include/Graph.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/include/Graph.cpp
+CMakeFiles/Ass1_new.dir/src/Graph.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
+CMakeFiles/Ass1_new.dir/src/Graph.cpp.o: ../src/Graph.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Ass1_new.dir/src/Graph.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/src/Graph.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/src/Graph.cpp
 
-CMakeFiles/Ass1_new.dir/include/Graph.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/include/Graph.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/include/Graph.cpp > CMakeFiles/Ass1_new.dir/include/Graph.cpp.i
+CMakeFiles/Ass1_new.dir/src/Graph.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/src/Graph.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/src/Graph.cpp > CMakeFiles/Ass1_new.dir/src/Graph.cpp.i
 
-CMakeFiles/Ass1_new.dir/include/Graph.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/include/Graph.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/include/Graph.cpp -o CMakeFiles/Ass1_new.dir/include/Graph.cpp.s
+CMakeFiles/Ass1_new.dir/src/Graph.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/src/Graph.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/src/Graph.cpp -o CMakeFiles/Ass1_new.dir/src/Graph.cpp.s
 
-CMakeFiles/Ass1_new.dir/include/Session.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
-CMakeFiles/Ass1_new.dir/include/Session.cpp.o: ../include/Session.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Ass1_new.dir/include/Session.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/include/Session.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/include/Session.cpp
+CMakeFiles/Ass1_new.dir/src/Session.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
+CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../src/Session.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Ass1_new.dir/src/Session.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/src/Session.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/src/Session.cpp
 
-CMakeFiles/Ass1_new.dir/include/Session.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/include/Session.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/include/Session.cpp > CMakeFiles/Ass1_new.dir/include/Session.cpp.i
+CMakeFiles/Ass1_new.dir/src/Session.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/src/Session.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/src/Session.cpp > CMakeFiles/Ass1_new.dir/src/Session.cpp.i
 
-CMakeFiles/Ass1_new.dir/include/Session.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/include/Session.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/include/Session.cpp -o CMakeFiles/Ass1_new.dir/include/Session.cpp.s
+CMakeFiles/Ass1_new.dir/src/Session.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/src/Session.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/src/Session.cpp -o CMakeFiles/Ass1_new.dir/src/Session.cpp.s
 
-CMakeFiles/Ass1_new.dir/include/Tree.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
-CMakeFiles/Ass1_new.dir/include/Tree.cpp.o: ../include/Tree.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Ass1_new.dir/include/Tree.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/include/Tree.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/include/Tree.cpp
+CMakeFiles/Ass1_new.dir/src/Tree.cpp.o: CMakeFiles/Ass1_new.dir/flags.make
+CMakeFiles/Ass1_new.dir/src/Tree.cpp.o: ../src/Tree.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Ass1_new.dir/src/Tree.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Ass1_new.dir/src/Tree.cpp.o -c /home/spl211/SPL-Ass/Ass1-new/src/Tree.cpp
 
-CMakeFiles/Ass1_new.dir/include/Tree.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/include/Tree.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/include/Tree.cpp > CMakeFiles/Ass1_new.dir/include/Tree.cpp.i
+CMakeFiles/Ass1_new.dir/src/Tree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ass1_new.dir/src/Tree.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spl211/SPL-Ass/Ass1-new/src/Tree.cpp > CMakeFiles/Ass1_new.dir/src/Tree.cpp.i
 
-CMakeFiles/Ass1_new.dir/include/Tree.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/include/Tree.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/include/Tree.cpp -o CMakeFiles/Ass1_new.dir/include/Tree.cpp.s
+CMakeFiles/Ass1_new.dir/src/Tree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ass1_new.dir/src/Tree.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spl211/SPL-Ass/Ass1-new/src/Tree.cpp -o CMakeFiles/Ass1_new.dir/src/Tree.cpp.s
 
 # Object files for target Ass1_new
 Ass1_new_OBJECTS = \
 "CMakeFiles/Ass1_new.dir/src/main.cpp.o" \
 "CMakeFiles/Ass1_new.dir/src/Agent.cpp.o" \
-"CMakeFiles/Ass1_new.dir/include/Graph.cpp.o" \
-"CMakeFiles/Ass1_new.dir/include/Session.cpp.o" \
-"CMakeFiles/Ass1_new.dir/include/Tree.cpp.o"
+"CMakeFiles/Ass1_new.dir/src/Graph.cpp.o" \
+"CMakeFiles/Ass1_new.dir/src/Session.cpp.o" \
+"CMakeFiles/Ass1_new.dir/src/Tree.cpp.o"
 
 # External object files for target Ass1_new
 Ass1_new_EXTERNAL_OBJECTS =
 
 Ass1_new: CMakeFiles/Ass1_new.dir/src/main.cpp.o
 Ass1_new: CMakeFiles/Ass1_new.dir/src/Agent.cpp.o
-Ass1_new: CMakeFiles/Ass1_new.dir/include/Graph.cpp.o
-Ass1_new: CMakeFiles/Ass1_new.dir/include/Session.cpp.o
-Ass1_new: CMakeFiles/Ass1_new.dir/include/Tree.cpp.o
+Ass1_new: CMakeFiles/Ass1_new.dir/src/Graph.cpp.o
+Ass1_new: CMakeFiles/Ass1_new.dir/src/Session.cpp.o
+Ass1_new: CMakeFiles/Ass1_new.dir/src/Tree.cpp.o
 Ass1_new: CMakeFiles/Ass1_new.dir/build.make
 Ass1_new: CMakeFiles/Ass1_new.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Ass1_new"
