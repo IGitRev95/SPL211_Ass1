@@ -6,6 +6,9 @@
 
 using namespace std;
 Agent::Agent(): MakeChanges(true) {}
+bool Agent:: getMakeChanges() const{
+    return MakeChanges;
+}
 ContactTracer:: ContactTracer(): Agent(){}
 Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
 

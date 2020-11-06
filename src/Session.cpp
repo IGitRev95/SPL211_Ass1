@@ -19,11 +19,12 @@ void Session::simulate() {
         int i = agents.size();
         for (int j = 0; j <= i; j = +1) {
           agents.at(i)->act(*this);
-          if(!agents.at(i)->get)
-          haschanged=agents.at(i)->hachangedsomething
+          if(!haschanged&&agents.at(i)->getMakeChanges())
+            haschanged=agents.at(i)->getMakeChanges();
         }
     }
-};
+    //make output json
+}
 Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
     json input_data;
     ifstream jasonIn(path);
