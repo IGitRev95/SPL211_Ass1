@@ -9,6 +9,7 @@ CMakeFiles/Ass1_new.dir/src/Agent.cpp.o: ../src/Agent.cpp
 CMakeFiles/Ass1_new.dir/src/Graph.cpp.o: ../include/Graph.h
 CMakeFiles/Ass1_new.dir/src/Graph.cpp.o: ../src/Graph.cpp
 
+CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../include/Agent.h
 CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../include/Graph.h
 CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../include/Session.h
 CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../include/json.hpp
@@ -17,6 +18,7 @@ CMakeFiles/Ass1_new.dir/src/Session.cpp.o: ../src/Session.cpp
 CMakeFiles/Ass1_new.dir/src/Tree.cpp.o: ../include/Tree.h
 CMakeFiles/Ass1_new.dir/src/Tree.cpp.o: ../src/Tree.cpp
 
+CMakeFiles/Ass1_new.dir/src/main.cpp.o: ../include/Agent.h
 CMakeFiles/Ass1_new.dir/src/main.cpp.o: ../include/Graph.h
 CMakeFiles/Ass1_new.dir/src/main.cpp.o: ../include/Session.h
 CMakeFiles/Ass1_new.dir/src/main.cpp.o: ../src/main.cpp

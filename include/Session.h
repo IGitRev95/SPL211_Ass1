@@ -4,8 +4,10 @@
 #include <vector>
 #include <string>
 #include "Graph.h"
-
+#include <queue>
+#include "Agent.h"
 class Agent;
+class Virus;
 
 enum TreeType{
   Cycle,
@@ -15,20 +17,22 @@ enum TreeType{
 
 class Session{
 public:
-    Session(const std::string& path);
-    
-    void simulate();
-    void addAgent(const Agent& agent);
-    void setGraph(const Graph& graph);
-    
-    void enqueueInfected(int);
-    int dequeueInfected();
-    TreeType getTreeType() const;
-    
+    Session(const std::string& path); //implemented but need to check efficiency
+    void addAgent(const Agent& agent);// implemented
+    void setGraph(const Graph& graph); // why we need this function
+    void enqueueInfected(int); // implemented
+    int dequeueInfected(); // implemented
+    TreeType getTreeType() const; // implemented
+    Session(const Session &other); // copy constructor
+    Session & operator=(const Session& other); // copy assignment operator
+    Session(Session&& other) noexcept; // move constructor
+    Session& operator=(Session&& other) noexcept; // move assigment operator
+    void copy(const Session& other);
 private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
+    std::queue<Virus*> infecteds;
 };
 
 #endif
