@@ -5,7 +5,7 @@
 #include "include/Graph.h"
 
 using namespace std;
-
+//Graph::Graph(const std::vector<std::vector<int>>& matrix):edges(matrix) {};
 void Graph::updatematrix(const std::vector<std::vector<int>>& matrix) {
     for(vector<int> edge: matrix) edges.push_back(edge);
 }

@@ -7,7 +7,6 @@
 #include <queue>
 #include "Agent.h"
 class Agent;
-class Virus;
 
 enum TreeType{
   Cycle,
@@ -32,7 +31,7 @@ private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
-    std::queue<Virus*> infecteds;
+    std::queue<int> infecteds;
 };
 
 #endif

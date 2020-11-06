@@ -21,27 +21,23 @@ Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
         if (elem.front() == "C") agent = new ContactTracer();
         else {
             agent = new Virus(elem.at(1));
-            infecteds.push((Virus*)agent);
         }
         addAgent(*agent);
+        delete agent;
     }
     g.updatematrix(input_data["graph"]);
     string tree= input_data["tree"].front();
     if (tree=="M") treeType=MaxRank;
-        if (tree == "C") treeType=Cycle;
-        if (tree == "R") treeType=Root;
-
+    if (tree == "C") treeType=Cycle;
+    if (tree == "R") treeType=Root;
     }
 int Session::dequeueInfected() {
-    Virus* v= infecteds.front();
-    int number= v->getNumber();
+    int number= infecteds.front();
     infecteds.pop();
-    delete v;
     return number;
 }
 void Session::enqueueInfected(int number) {
-    Virus* v = new Virus(number);
-    infecteds.push(v);
+    infecteds.push(number);
 }
 TreeType Session::getTreeType() const {
     return treeType;
