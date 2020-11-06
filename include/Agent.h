@@ -7,8 +7,7 @@ using namespace std;
 class Agent {
 public:
     Agent();
-
-//    *Agent (string& s,int a);
+    bool getMakeChanges
     virtual void act(Session &session) = 0;
 
     virtual Agent *clone() const = 0;
