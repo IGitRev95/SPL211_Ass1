@@ -17,11 +17,11 @@ void Session::simulate() {
         CycleNumber=+1;
         haschanged= false;
         int i = agents.size();
-        for (int j = 0; j <= i; j = +1) {
-          agents.at(i)->act(*this);
-          if(!agents.at(i)->get)
-          haschanged=agents.at(i)->hachangedsomething
-        }
+//        for (int j = 0; j <= i; j = +1) {
+//          agents.at(i)->act(*this);
+//          if(!agents.at(i)->get)
+//          haschanged=agents.at(i)->hachangedsomething
+//        }
     }
 };
 Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
@@ -58,6 +58,15 @@ TreeType Session::getTreeType() const {
 
         void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());}
+ //--------------------------------------------------
+    bool Session::isInfectedQueueEmptey() {
+        return infecteds.empty();
+}
+ //--------------------------------------------------
+
+
+
+
 //     //TODO:Need to make a copy constructor or assignment constructor
 //    //TODO:set a tree type
 //    //TODO: make a method that pulls the agents starting list from json and add to agents field using add_agent

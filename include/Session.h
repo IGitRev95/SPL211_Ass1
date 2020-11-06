@@ -28,6 +28,7 @@ public:
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
     void copy(const Session& other);
+    bool isInfectedQueueEmptey();
 private:
     Graph g;
     TreeType treeType;

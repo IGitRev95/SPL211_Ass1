@@ -5,13 +5,28 @@
 #include "include/Agent.h"
 
 using namespace std;
+
 Agent::Agent(): MakeChanges(true) {}
+
 ContactTracer:: ContactTracer(): Agent(){}
-Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
 
 Agent *ContactTracer:: clone() const {
     return new ContactTracer();
 }
+
+void ContactTracer::act(Session &session) {
+    if(!session.isInfectedQueueEmptey())
+    {
+        int root = session.dequeueInfected();
+        /*TODO: creat tree matching session treetype using BFS
+          call traceTree method for picking node for disconnecting
+          disconnect node and update relevant fields
+         */
+    }
+}
+
+Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
+
 Agent* Virus::clone() const {
     return new Virus(this->getNumber());
 }
