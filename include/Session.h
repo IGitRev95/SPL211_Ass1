@@ -16,6 +16,7 @@ enum TreeType{
 
 class Session{
 public:
+    void simulate();
     Session(const std::string& path); //implemented but need to check efficiency
     void addAgent(const Agent& agent);// implemented
     void setGraph(const Graph& graph); // why we need this function

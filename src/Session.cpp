@@ -10,7 +10,20 @@
 
 using namespace std;
 using json = nlohmann::json;
-
+void Session::simulate() {
+    bool haschanged= true;
+    int CycleNumber=0;
+    while (haschanged) {
+        CycleNumber=+1;
+        haschanged= false;
+        int i = agents.size();
+        for (int j = 0; j <= i; j = +1) {
+          agents.at(i)->act(*this);
+          if(!agents.at(i)->get)
+          haschanged=agents.at(i)->hachangedsomething
+        }
+    }
+};
 Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
     json input_data;
     ifstream jasonIn(path);

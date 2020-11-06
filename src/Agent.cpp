@@ -5,9 +5,9 @@
 #include "include/Agent.h"
 
 using namespace std;
-Agent::Agent(){}
-ContactTracer:: ContactTracer(){}
-Virus:: Virus(int nodeInd):nodeInd(nodeInd) {}
+Agent::Agent(): MakeChanges(true) {}
+ContactTracer:: ContactTracer(): Agent(){}
+Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
 
 Agent *ContactTracer:: clone() const {
     return new ContactTracer();
