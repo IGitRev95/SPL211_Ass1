@@ -36,7 +36,7 @@ void Virus::act(Session &session) {
         }
     }
 }
-void ContactTracer::act(Session &session) {}
+
 Agent *ContactTracer:: clone() const {
     return new ContactTracer();
 }
@@ -56,8 +56,6 @@ void ContactTracer::act(Session &session) {
          */
     }
 }
-
-Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
 
 Agent* Virus::clone() const {
     return new Virus(this->getNumber());
