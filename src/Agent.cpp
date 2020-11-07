@@ -3,7 +3,7 @@
 //
 
 #include "include/Agent.h"
-
+#include "include/Tree.h"
 using namespace std;
 
 Agent::Agent(): MakeChanges(true) {}
@@ -18,6 +18,11 @@ void ContactTracer::act(Session &session) {
     if(!session.isInfectedQueueEmptey())
     {
         int root = session.dequeueInfected();
+        Tree *curr_infected_tree = Tree::createTree(session,root);
+        int node_to_disconnect = curr_infected_tree->traceTree();
+        Graph phi(session.getG());//--!!on stack
+        phi.disconnect(node_to_disconnect);
+        session.setGraph(phi);
         /*TODO: creat tree matching session treetype using BFS
           call traceTree method for picking node for disconnecting
           disconnect node and update relevant fields

@@ -24,7 +24,7 @@ void Session::simulate() {
 //        }
     }
 };
-Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
+Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0) {
     json input_data;
     ifstream jasonIn(path);
     jasonIn >> input_data;
@@ -63,8 +63,14 @@ TreeType Session::getTreeType() const {
         return infecteds.empty();
 }
  //--------------------------------------------------
+ int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
 
+const Graph &Session::getG() const {
+    return g;
+}
+//--------------------------------------------------
 
+ //---------------------------------
 
 
 //     //TODO:Need to make a copy constructor or assignment constructor

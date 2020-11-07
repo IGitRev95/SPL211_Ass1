@@ -17,6 +17,8 @@ public:
     Graph(Graph&& other) noexcept; // move constructor
     Graph& operator=(Graph&& other) noexcept; // move assigment operator
 
+    void disconnect(int node);//disconnecting node from the graph
+
 private:
     std::vector<std::vector<int>> edges;
 };

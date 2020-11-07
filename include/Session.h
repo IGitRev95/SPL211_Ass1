@@ -28,12 +28,17 @@ public:
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
     void copy(const Session& other);
-    bool isInfectedQueueEmptey();
+    bool isInfectedQueueEmptey();//implemented
+
+    int get_cycleCurrNum() const ;//implemented
+    const Graph &getG() const;
+
 private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
     std::queue<int> infecteds;
+    int _cycleCurrNum;
 };
 
 #endif
