@@ -12,11 +12,20 @@ void Graph::updatematrix(const std::vector<std::vector<int>>& matrix){
         IsInfectedArray.push_back(0);
     }
 }
+int Graph::NodeStatus(int nodeInd) {
+    return IsInfectedArray.at((nodeInd));
+}
 bool Graph::isInfected(int nodeInd) {
-    return (IsInfectedArray.at(nodeInd)==1);
+    return NodeStatus(nodeInd)==2;
 }
 void Graph::infectNode(int nodeInd) {
+    if (!isInfected(nodeInd)) IsInfectedArray.at(nodeInd)=2;
+}
+void Graph::CarryNode(int nodeInd) {
     if (!isInfected(nodeInd)) IsInfectedArray.at(nodeInd)=1;
+}
+vector<int> Graph::getEdgesOf(int v) const {
+    return edges.at(v);
 }
 Graph::Graph(): edges(), IsInfectedArray(){}
 // copy Constructor

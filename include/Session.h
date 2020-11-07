@@ -28,6 +28,12 @@ public:
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
     void copy(const Session& other);
+
+
+//     Graph& getGraph() ;
+
+    Graph* getPointerGraph() ;
+
 private:
     Graph g;
     TreeType treeType;

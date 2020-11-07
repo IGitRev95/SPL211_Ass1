@@ -12,7 +12,7 @@ public:
 
     virtual Agent *clone() const = 0;
 
-private:
+protected:
     bool MakeChanges;
 };
 class ContactTracer: public Agent{

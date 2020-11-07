@@ -11,12 +11,14 @@ public:
     Graph();
   //  Graph(const std::vector<std::vector<int>>& matrix);
     void infectNode(int nodeInd);
+    void CarryNode(int nodeInd);
+    int NodeStatus(int nodeInd);
     bool isInfected(int nodeInd);
     Graph(const Graph& other); // copy constructor
     Graph& operator=(const Graph& other); // copy assignment operator
     Graph(Graph&& other) noexcept; // move constructor
     Graph& operator=(Graph&& other) noexcept; // move assigment operator
-
+    std::vector<int> getEdgesOf(int v) const;
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;

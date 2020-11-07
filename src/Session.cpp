@@ -11,16 +11,16 @@
 using namespace std;
 using json = nlohmann::json;
 void Session::simulate() {
-    bool haschanged= true;
+    bool HasChanged= true;
     int CycleNumber=0;
-    while (haschanged) {
+    while (HasChanged) {
         CycleNumber=+1;
-        haschanged= false;
+        HasChanged= false;
         int i = agents.size();
         for (int j = 0; j <= i; j = +1) {
           agents.at(i)->act(*this);
-          if(!haschanged&&agents.at(i)->getMakeChanges())
-            haschanged=agents.at(i)->getMakeChanges();
+          if(!HasChanged&&agents.at(i)->getMakeChanges())
+            HasChanged=agents.at(i)->getMakeChanges();
         }
     }
     //make output json
@@ -31,8 +31,8 @@ Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
     jasonIn >> input_data;
   //  cout<<input_data["agents"]<<endl;
     for (auto &elem: input_data["agents"]) {
-        Agent *agent;
-        if (elem.front() == "C") agent = new ContactTracer();
+        Agent* agent;
+        if (elem.front() == "C") agent= new ContactTracer();
         else {
             agent = new Virus(elem.at(1));
         }
@@ -56,7 +56,12 @@ void Session::enqueueInfected(int number) {
 TreeType Session::getTreeType() const {
     return treeType;
 }
-
+Graph* Session::getPointerGraph() {
+    return (&this->g);
+}
+// Graph& Session::getGraph()  {
+//    return g;
+//}
         void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());}
 //     //TODO:Need to make a copy constructor or assignment constructor
