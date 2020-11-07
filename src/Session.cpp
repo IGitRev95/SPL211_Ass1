@@ -70,6 +70,9 @@ const Graph &Session::getG() const {
 }
 //--------------------------------------------------
 
+void Session::setGraph(const Graph &graph) {
+    g = graph;
+}
  //---------------------------------
 
 
