@@ -8,8 +8,7 @@ class Agent {
 public:
     Agent();
     bool getMakeChanges() const;
-    virtual void act(Session &session)=0;
-
+   // virtual void act(Session &session)=0;
     virtual Agent *clone() const = 0;
 
 protected:
@@ -19,19 +18,18 @@ class ContactTracer: public Agent{
 public:
     ContactTracer();
     
-    virtual void act(Session& session);
-    Agent* clone() const ;
+   // virtual void act(Session& session);
+    Agent* clone() const override ;
 };
 
 
 class Virus: public Agent{
 public:
     Virus(int nodeInd);
-    
-    virtual void act(Session& session);
-    Agent* clone() const ;
+   // virtual void act(Session& session);
+    Agent* clone() const override ;
     int getNumber() const;
-protected:
+private:
     const int nodeInd;
 };
 

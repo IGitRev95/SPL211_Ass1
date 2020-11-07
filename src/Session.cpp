@@ -17,10 +17,10 @@ void Session::simulate() {
         CycleNumber=+1;
         HasChanged= false;
         int i = agents.size();
-        for (int j = 0; j <= i; j = +1) {
-          agents.at(i)->act(*this);
-          if(!HasChanged&&agents.at(i)->getMakeChanges())
-            HasChanged=agents.at(i)->getMakeChanges();
+        for (int j = 0; j < i; j = +1) {
+   //       agents.at(i)->act(*this);
+          if(!HasChanged&&(agents.at(j)->getMakeChanges()))
+            HasChanged=agents.at(j)->getMakeChanges();
         }
     }
     //make output json
