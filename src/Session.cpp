@@ -11,34 +11,40 @@
 using namespace std;
 using json = nlohmann::json;
 void Session::simulate() {
-    bool haschanged= true;
+    bool HasChanged= true;
     int CycleNumber=0;
-    while (haschanged) {
+    while (HasChanged) {
         CycleNumber=+1;
-        haschanged= false;
+        HasChanged= false;
         int i = agents.size();
-//        for (int j = 0; j <= i; j = +1) {
-//          agents.at(i)->act(*this);
-//          if(!agents.at(i)->get)
-//          haschanged=agents.at(i)->hachangedsomething
-//        }
+        for (int j = 0; j <= i; j = +1) {
+          agents.at(i)->act(*this);
+          if(!HasChanged&&agents.at(i)->getMakeChanges())
+            HasChanged=agents.at(i)->getMakeChanges();
+        }
     }
-};
+    //make output json
+}
+
 Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0) {
     json input_data;
     ifstream jasonIn(path);
     jasonIn >> input_data;
   //  cout<<input_data["agents"]<<endl;
+  vector<int> CarryNodes= {};
+  int CarryNode;
     for (auto &elem: input_data["agents"]) {
-        Agent *agent;
-        if (elem.front() == "C") agent = new ContactTracer();
+        Agent* agent;
+        if (elem.front() == "C") agent= new ContactTracer();
         else {
-            agent = new Virus(elem.at(1));
+            CarryNode=elem.at(1);
+            agent = new Virus(CarryNode);
+            CarryNodes.push_back(CarryNode);
         }
         addAgent(*agent);
         delete agent;
     }
-    g.updatematrix(input_data["graph"]);
+    g.updatematrix(input_data["graph"], CarryNodes);
     string tree= input_data["tree"].front();
     if (tree=="M") treeType=MaxRank;
     if (tree == "C") treeType=Cycle;
@@ -55,7 +61,12 @@ void Session::enqueueInfected(int number) {
 TreeType Session::getTreeType() const {
     return treeType;
 }
-
+Graph* Session::getPointerGraph() {
+    return (&this->g);
+}
+// Graph& Session::getGraph()  {
+//    return g;
+//}
         void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());}
  //--------------------------------------------------

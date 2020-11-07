@@ -7,12 +7,12 @@ using namespace std;
 class Agent {
 public:
     Agent();
-    bool getMakeChanges
-    virtual void act(Session &session) = 0;
+    bool getMakeChanges() const;
+    virtual void act(Session &session)=0;
 
     virtual Agent *clone() const = 0;
 
-private:
+protected:
     bool MakeChanges;
 };
 class ContactTracer: public Agent{
@@ -20,7 +20,7 @@ public:
     ContactTracer();
     
     virtual void act(Session& session);
-    Agent* clone() const override;
+    Agent* clone() const ;
 };
 
 
@@ -29,7 +29,7 @@ public:
     Virus(int nodeInd);
     
     virtual void act(Session& session);
-    Agent* clone() const override;
+    Agent* clone() const ;
     int getNumber() const;
 protected:
     const int nodeInd;

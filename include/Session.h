@@ -33,6 +33,12 @@ public:
     int get_cycleCurrNum() const ;//implemented
     const Graph &getG() const;
 
+
+
+//     Graph& getGraph() ;
+
+    Graph* getPointerGraph() ;
+
 private:
     Graph g;
     TreeType treeType;
