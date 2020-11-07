@@ -29,6 +29,7 @@ void Virus::act(Session &session) {
           Virus* virus= new Virus(i);
           session.addAgent(*virus);
             delete virus;
+            break;
         }
     }
 }

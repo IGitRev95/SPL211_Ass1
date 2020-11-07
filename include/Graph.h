@@ -6,7 +6,7 @@
 class Graph{
 public:
 
-    void updatematrix (const std::vector<std::vector<int>>& matrix);
+    void updatematrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
 
     Graph();
   //  Graph(const std::vector<std::vector<int>>& matrix);

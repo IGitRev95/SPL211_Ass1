@@ -30,16 +30,20 @@ Session::Session(const string &path): g(), treeType(),agents(),infecteds() {
     ifstream jasonIn(path);
     jasonIn >> input_data;
   //  cout<<input_data["agents"]<<endl;
+  vector<int> CarryNodes= {};
+  int CarryNode;
     for (auto &elem: input_data["agents"]) {
         Agent* agent;
         if (elem.front() == "C") agent= new ContactTracer();
         else {
-            agent = new Virus(elem.at(1));
+            CarryNode=elem.at(1);
+            agent = new Virus(CarryNode);
+            CarryNodes.push_back(CarryNode);
         }
         addAgent(*agent);
         delete agent;
     }
-    g.updatematrix(input_data["graph"]);
+    g.updatematrix(input_data["graph"], CarryNodes);
     string tree= input_data["tree"].front();
     if (tree=="M") treeType=MaxRank;
     if (tree == "C") treeType=Cycle;
