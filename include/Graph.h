@@ -9,6 +9,7 @@ public:
     void updatematrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
 
     Graph();
+
   //  Graph(const std::vector<std::vector<int>>& matrix);
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
@@ -16,18 +17,19 @@ public:
     bool isInfected(int nodeInd);
     Graph(const Graph& other); // copy constructor
     Graph& operator=(const Graph& other); // copy assignment operator
-    Graph(Graph&& other) noexcept; // move constructor
-    Graph& operator=(Graph&& other) noexcept; // move assigment operator
-
     void disconnect(int node);//disconnecting node from the graph
     int getNumOfVertices() const;
+    void clean();
     std::vector<int> getEdgesOf(int v) const;
 
     Tree* BFS_Scan(int rootNode, const Session& session);
 
+    bool SessionDone(); // checking if the Session done
+    bool Connected(int v1,int v2) const;
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;
+
 };
 
 #endif

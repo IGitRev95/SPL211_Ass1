@@ -1,4 +1,4 @@
-/snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/spl211/SPL-Ass/Ass1-new
+/snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/nave/CLionProjects/SPL211_Ass1
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/spl211/SPL-Ass/Ass1-new/cmake-build-debug
+-- Build files have been written to: /home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug

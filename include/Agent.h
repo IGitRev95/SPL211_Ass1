@@ -2,34 +2,36 @@
 #define AGENT_H_
 
 #include <vector>
-#include "Session.h"
+// forward declaration
 using namespace std;
 class Session;
-
-class Agent {
+class Agent{
 public:
-    virtual void act(Session &session)=0;
-    virtual Agent *clone() const = 0;
     Agent();
+
+    virtual void act(Session& session)=0;
+    virtual Agent* clone() const=0;
     bool getMakeChanges() const;
 
 protected:
     bool MakeChanges;
 };
+
 class ContactTracer: public Agent{
 public:
-    virtual void act(Session& session);
-
     ContactTracer();
-    Agent* clone() const override;
+    
+    virtual void act(Session& session);
+    virtual Agent* clone() const;
 };
 
 
 class Virus: public Agent{
 public:
-    virtual void act(Session& session);
     Virus(int nodeInd);
-    Agent* clone() const override ;
+
+    virtual void act(Session& session);
+    virtual Agent* clone() const;
     int getNumber() const;
 private:
     const int nodeInd;
