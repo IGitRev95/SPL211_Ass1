@@ -16,7 +16,8 @@ public:
 
     static Tree* createTree(const Session& session, int rootLabel);
     virtual int traceTree()=0;
-
+    virtual Tree *clone() const = 0;
+    virtual ~Tree();
 protected:
     int node;
     std::vector<Tree*> children;
@@ -25,7 +26,11 @@ protected:
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
+    CycleTree(const CycleTree& cT);
     virtual int traceTree();
+    virtual Tree *clone() const ;
+    virtual ~Tree();
+    //int getCycle()const ;
 private:
     int currCycle;
 };
@@ -34,12 +39,16 @@ class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);
     virtual int traceTree();
+    virtual Tree *clone() const ;
+
 };
 
 class RootTree: public Tree{
 public:
     RootTree(int rootLabel);
     virtual int traceTree();
+    virtual Tree *clone() const ;
+
 };
 
 #endif

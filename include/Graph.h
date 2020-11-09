@@ -2,7 +2,7 @@
 #define GRAPH_H_
 
 #include <vector>
-
+#include "Tree.h"
 class Graph{
 public:
 
@@ -22,6 +22,9 @@ public:
     void disconnect(int node);//disconnecting node from the graph
     int getNumOfVertices() const;
     std::vector<int> getEdgesOf(int v) const;
+
+    Tree* BFS_Scan(int rootNode, const Session& session);
+
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;

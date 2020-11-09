@@ -4,29 +4,31 @@
 #include <vector>
 #include "Session.h"
 using namespace std;
+class Session;
+
 class Agent {
 public:
+    virtual void act(Session &session)=0;
+    virtual Agent *clone() const = 0;
     Agent();
     bool getMakeChanges() const;
-   // virtual void act(Session &session)=0;
-    virtual Agent *clone() const = 0;
 
 protected:
     bool MakeChanges;
 };
 class ContactTracer: public Agent{
 public:
+    virtual void act(Session& session);
+
     ContactTracer();
-    
-   // virtual void act(Session& session);
-    Agent* clone() const override ;
+    Agent* clone() const override;
 };
 
 
 class Virus: public Agent{
 public:
+    virtual void act(Session& session);
     Virus(int nodeInd);
-   // virtual void act(Session& session);
     Agent* clone() const override ;
     int getNumber() const;
 private:
