@@ -11,31 +11,32 @@
 using namespace std;
 using json = nlohmann::json;
 void Session::simulate() {
-    bool HasChanged= true;
-    int CycleNumber=0;
-    while (HasChanged) {
-        CycleNumber=+1;
-        HasChanged= false;
-        int i = agents.size();
-        for (int j = 0; j < i; j = +1) {
-   //       agents.at(i)->act(*this);
-          if(!HasChanged&&(agents.at(j)->getMakeChanges()))
-            HasChanged=agents.at(j)->getMakeChanges();
-        }
+    bool terminate= g.SessionDone();
+    int CurrentSize;
+    if (!terminate){
+        do{
+            _cycleCurrNum=_cycleCurrNum+1;
+            CurrentSize= agents.size();
+            for (int j = 0; j < CurrentSize; j = j+1) {
+                agents.at(j)->act(*this);
+            }
+            terminate=g.SessionDone();
+        }while (terminate);
     }
-    //make output json
+//    make output json
 }
 
 Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0) {
     json input_data;
     ifstream jasonIn(path);
     jasonIn >> input_data;
-  //  cout<<input_data["agents"]<<endl;
   vector<int> CarryNodes= {};
   int CarryNode;
+  Agent* agent;
     for (auto &elem: input_data["agents"]) {
-        Agent* agent;
-        if (elem.front() == "C") agent= new ContactTracer();
+
+        if (elem.front() == "C")
+            agent= new ContactTracer();
         else {
             CarryNode=elem.at(1);
             agent = new Virus(CarryNode);
@@ -61,12 +62,7 @@ void Session::enqueueInfected(int number) {
 TreeType Session::getTreeType() const {
     return treeType;
 }
-Graph* Session::getPointerGraph() {
-    return (&this->g);
-}
-// Graph& Session::getGraph()  {
-//    return g;
-//}
+//--------------------------------------------------
         void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());}
  //--------------------------------------------------
@@ -75,33 +71,67 @@ Graph* Session::getPointerGraph() {
 }
  //--------------------------------------------------
  int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
-
-const Graph &Session::getG() const {
+//---------------------------------------------------
+ Graph & Session::getGraphReference() {
     return g;
 }
 //--------------------------------------------------
-
 void Session::setGraph(const Graph &graph) {
     g = graph;
 }
  //---------------------------------
 
+//---- Rule of 5
+//destructor
+Session::~Session(){
+    for (Agent* agent:agents) delete agent;
+    agents.clear();
+    while (!infecteds.empty()) infecteds.pop();
+    g.clean();
+}
+//copy constructor
+Session::Session(const Session& other): g(other.g),
+treeType(other.treeType),
+agents(),
+infecteds(other.infecteds),
+_cycleCurrNum(other._cycleCurrNum) {
+    for (Agent* agent: agents) this->addAgent(*agent);
+}
+//copy assigment operator
+Session & Session:: operator=(const Session& other){
+    if (this != &other){
+        clean();
+        copy(other);
+    }
+    return (*this);
+}
+// move constructor
+Session::Session(Session &&other) noexcept: g(other.g),
+infecteds(move(other.infecteds)),
+_cycleCurrNum(other._cycleCurrNum),
+agents(move(other.agents)),
+treeType(other.treeType)
+{
+for (Agent* agent: other.agents) agent= nullptr;
+}
 
-//     //TODO:Need to make a copy constructor or assignment constructor
-//    //TODO:set a tree type
-//    //TODO: make a method that pulls the agents starting list from json and add to agents field using add_agent
-//    Session::Session(const Session& other): g(),agents(),treeType(other.treeType),infecteds(other.infecteds) {
-//        g=Graph(other.g);
-//        for (Agent* agent: other.agents) agents.push_back(agent);
-//
-//        }
-//
+void Session:: clean(){
+    this->_cycleCurrNum=0;
+    for (Agent* agent:agents) delete agent;
+    agents.clear();
+    while (!(infecteds.empty())){
+        infecteds.pop();
+    };
+    g.clean();
+}
 
 
-//    void Session:: copy(const Session& other) {
-//        g = Graph(other.g);
-//        treeType = other.treeType;
-//    }
+    void Session:: copy(const Session& other) {
+        g = Graph(other.g);
+        treeType = other.treeType;
+        for (Agent* agent: other.agents) addAgent(*agent);
+        infecteds= other.infecteds;
+    }
 
 
 

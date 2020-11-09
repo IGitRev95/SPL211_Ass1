@@ -61,4 +61,27 @@ Graph& Graph::operator=(const Graph& other)
     IsInfectedArray=other.IsInfectedArray;
     return *this;
 }
+bool Graph:: Connected(int v1, int v2) const{
+    if (v1!=v2) return (edges.at(v1).at(v2)==1);
+    return false;
+}
+bool Graph::SessionDone() {
+    int size= edges.size();
+    bool  terminate=true;
+    int StatusCurrent;
+    for (int i=0;terminate&& i < size; i= i + 1) {
+        StatusCurrent = NodeStatus(i);
+        if (StatusCurrent == 1) terminate=false;
+        else{
+            for (int j=i+1;terminate&&j<size;j=j+1){
+                if (Connected(i,j)&&StatusCurrent!=NodeStatus(j))
+                    terminate=false;
+            }
+        }
 
+    }
+}
+void Graph:: clean(){
+    edges.clear();
+    IsInfectedArray.clear();
+}

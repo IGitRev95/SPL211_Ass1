@@ -6,7 +6,7 @@
 #include "Graph.h"
 #include <queue>
 #include "Agent.h"
-class Agent;
+
 
 enum TreeType{
   Cycle,
@@ -19,10 +19,14 @@ public:
     void simulate();
     Session(const std::string& path); //implemented but need to check efficiency
     void addAgent(const Agent& agent);// implemented
+   // void addAgent(Agent&& other);
     void setGraph(const Graph& graph); // why we need this function
     void enqueueInfected(int); // implemented
     int dequeueInfected(); // implemented
     TreeType getTreeType() const; // implemented
+
+    // Rul of Five
+    virtual ~ Session(); // destructor
     Session(const Session &other); // copy constructor
     Session & operator=(const Session& other); // copy assignment operator
     Session(Session&& other) noexcept; // move constructor
@@ -31,13 +35,10 @@ public:
     bool isInfectedQueueEmptey();//implemented
 
     int get_cycleCurrNum() const ;//implemented
-    const Graph &getG() const;
+     Graph &getGraphReference();
 
+    void clean();
 
-
-//     Graph& getGraph() ;
-
-    Graph* getPointerGraph() ;
 
 private:
     Graph g;
