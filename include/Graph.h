@@ -20,7 +20,7 @@ public:
     Graph& operator=(Graph&& other) noexcept; // move assigment operator
 
     void disconnect(int node);//disconnecting node from the graph
-
+    int getNumOfVertices() const;
     std::vector<int> getEdgesOf(int v) const;
 private:
     std::vector<std::vector<int>> edges;

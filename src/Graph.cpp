@@ -48,6 +48,10 @@ void Graph::disconnect(int node) {
     }
 }
 
+int Graph::getNumOfVertices() const {
+    return edges.size();
+}
+
 Graph& Graph::operator=(const Graph& other)
 {
     int verticesNum = other.edges.size();
