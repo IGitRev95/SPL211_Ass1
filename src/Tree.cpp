@@ -41,9 +41,9 @@ Tree::~Tree() {
 }
 //
 ////RootTree methods implementation
-//RootTree::RootTree(int rootLabel):Tree(rootLabel){}
-//
-//int RootTree::traceTree() {return node;}
+RootTree::RootTree(int rootLabel):Tree(rootLabel){}
+
+int RootTree::traceTree() {return node;}
 ////---------------------------------
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}

@@ -72,7 +72,7 @@ TreeType Session::getTreeType() const {
  //--------------------------------------------------
  int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
 //---------------------------------------------------
- Graph & Session::getGraphReference() {
+ Graph & Session::getGraphReference() const {
     return g;
 }
 //--------------------------------------------------

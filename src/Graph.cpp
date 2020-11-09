@@ -3,7 +3,7 @@
 //
 #include <string>
 #include "include/Graph.h"
-#include "include/Tree.h"
+
 
 using namespace std;
 //Graph::Graph(const std::vector<std::vector<int>>& matrix):edges(matrix) {};
@@ -76,17 +76,18 @@ bool Graph::SessionDone() {
     int StatusCurrent;
     for (int i=0;terminate&& i < size; i= i + 1) {
         StatusCurrent = NodeStatus(i);
-        if (StatusCurrent == 1) terminate=false;
-        else{
-            for (int j=i+1;terminate&&j<size;j=j+1){
-                if (Connected(i,j)&&StatusCurrent!=NodeStatus(j))
-                    terminate=false;
+        if (StatusCurrent == 1) terminate = false;
+        else {
+            for (int j = i + 1; terminate && j < size; j = j + 1) {
+                if (Connected(i, j) && StatusCurrent != NodeStatus(j))
+                    terminate = false;
             }
         }
+    }}
 
-Tree* Graph::BFS_Scan(int rootNode, const Session &session) {
+Tree* Graph::BFSScan(int rootNode, const Session &session) {
 
-    vector<vector<int>> bfsData(session.getG().getNumOfVertices());
+    vector<vector<int>> bfsData(session.getGraphReference().getNumOfVertices());
     /*
      * table of [0]color,[1]distance,[2]parent
      */
@@ -103,7 +104,7 @@ Tree* Graph::BFS_Scan(int rootNode, const Session &session) {
     {
         int u = bfsQ.front();
         bfsQ.pop();
-        for(int v:session.getG().getEdgesOf(u))
+        for(int v:session.getGraphReference().getEdgesOf(u))
         {
             if (bfsData.at(v).at(0)==0)
             {
@@ -117,7 +118,7 @@ Tree* Graph::BFS_Scan(int rootNode, const Session &session) {
     }
 //------------------------------------------------
     //MEMORY LEAK OPTION
-    vector<Tree*> nodes_control(session.getG().getNumOfVertices());
+    vector<Tree*> nodes_control(session.getGraphReference().getNumOfVertices());
     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
     {
         nodes_control.at(i) = Tree::createTree(session,i);
@@ -134,11 +135,10 @@ Tree* Graph::BFS_Scan(int rootNode, const Session &session) {
         delete nodes_control.at(i);
     }
     return ans;
-
 }
 
-    }
-}
+
+
 void Graph:: clean(){
     edges.clear();
     IsInfectedArray.clear();

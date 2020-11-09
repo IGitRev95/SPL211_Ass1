@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "Tree.h"
 #include "Graph.h"
 #include <queue>
 #include "Agent.h"
@@ -35,7 +36,7 @@ public:
     bool isInfectedQueueEmptey();//implemented
 
     int get_cycleCurrNum() const ;//implemented
-     Graph &getGraphReference();
+     Graph &getGraphReference() const;
 
     void clean();
 
