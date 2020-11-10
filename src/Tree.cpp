@@ -64,24 +64,37 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
 }
 
 //
-////RootTree methods implementation
-RootTree::RootTree(int rootLabel):Tree(rootLabel){}
 
-int RootTree::traceTree() {return node;}
-////---------------------------------
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
 CycleTree::CycleTree(const CycleTree &cT):Tree(cT.node,cT.children),currCycle(cT.currCycle) {}
 
+int CycleTree::traceTree() {
+    return 0;
+}
+
 Tree* CycleTree::clone() const {
     return new CycleTree(*this);
 }
 
-//CycleTree::~Tree() {
-//    for(Tree* childtree:children)
-//    {
-//        delete childtree;
-//    }
-//}
-//int CycleTree::getCycle() const {return currCycle;}
+int CycleTree::getCycle() const {return currCycle;}
+
+MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
+
+int MaxRankTree::traceTree() {
+    return 0;
+}
+
+Tree* MaxRankTree::clone() const {
+    return new MaxRankTree(*this);
+}
+////RootTree methods implementation
+RootTree::RootTree(int rootLabel):Tree(rootLabel){}
+
+int RootTree::traceTree() {return node;}
+
+Tree * RootTree::clone() const {
+    return new RootTree(*this);
+}
+////---------------------------------

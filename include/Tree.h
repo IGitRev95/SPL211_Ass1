@@ -32,9 +32,11 @@ public:
     virtual int traceTree();
     virtual Tree *clone() const ;
     //virtual ~Tree();
-    //int getCycle()const ;
+    int getCycle()const ;
 private:
     int currCycle;
+
+
 };
 
 class MaxRankTree: public Tree{
