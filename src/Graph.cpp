@@ -118,15 +118,18 @@ vector<vector<int>>* Graph::BFSScan(int rootNode) const {
     {
         int u = bfsQ.front();
         bfsQ.pop();
-        for(int v : getEdgesOf(u))
+        int v=0;
+        for(int v1 : getEdgesOf(u))
         {
-            if (bfsData->at(v).at(0)==0)
-            {
-                bfsData->at(v).at(0)=1;
-                bfsData->at(v).at(1)=bfsData->at(u).at(1)+1;
-                bfsData->at(v).at(2)=u;
-                bfsQ.push(v);
+            if(v1==1) {
+                if (bfsData->at(v).at(0) == 0) {
+                    bfsData->at(v).at(0) = 1;
+                    bfsData->at(v).at(1) = bfsData->at(u).at(1) + 1;
+                    bfsData->at(v).at(2) = u;
+                    bfsQ.push(v);
+                }
             }
+            v=v+1;
         }
         bfsData->at(u).at(0)=3;
     }

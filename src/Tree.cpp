@@ -35,7 +35,8 @@ Tree::~Tree() {
 
      for (int i = 0; i < nodes_control.size(); i=i+1)
      {
-         nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
+         if(i!=rootLabel)
+             nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
      }
      delete bfsData;
      Tree* ans(nodes_control.at(rootLabel)->clone());

@@ -14,9 +14,9 @@ Agent::~Agent(){cout<<"agent destructor"<<endl;};
 ContactTracer:: ContactTracer(): Agent(){}
 
 void ContactTracer::act(Session &session) {
-    if(!session.isInfectedQueueEmptey())
+    int root = session.dequeueInfected();
+    if(root!=-1)
     {
-        int root = session.dequeueInfected();
         Tree *curr_infected_tree = Tree::createTree(session,root);
         int node_to_disconnect = curr_infected_tree->traceTree();
         Graph phi(session.getGraphReference());//--!!on stack
