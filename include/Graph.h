@@ -2,15 +2,21 @@
 #define GRAPH_H_
 
 #include <vector>
+#include <queue>
+#include "Session.h"
 #include "Tree.h"
-class Graph{
-public:
 
-    void updatematrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
+class Session;
+class Tree;
+
+class Graph {
+public:
 
     Graph();
 
-  //  Graph(const std::vector<std::vector<int>>& matrix);
+    void updateMatrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
+
+    //  Graph(const std::vector<std::vector<int>>& matrix);
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
     int NodeStatus(int nodeInd);
@@ -22,14 +28,14 @@ public:
     void clean();
     std::vector<int> getEdgesOf(int v) const;
 
-    Tree* BFS_Scan(int rootNode, const Session& session);
+    Tree* BFSScan(int rootNode);
 
     bool SessionDone(); // checking if the Session done
     bool Connected(int v1,int v2) const;
+
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;
-
 };
 
 #endif

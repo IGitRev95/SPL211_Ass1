@@ -2,8 +2,8 @@
 // Created by spl211 on 03/11/2020.
 //
 
-#include "include/Tree.h"
 #include <queue>
+#include "include/Tree.h"
 
 using namespace std;
 
@@ -34,7 +34,7 @@ Tree::~Tree() {
          }
          case Cycle:
          {
-             return new CycleTree(rootLabel,session.get_cycleCurrNum());//Should be deleted by CT
+             return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
          }
      }
 
@@ -54,10 +54,10 @@ Tree* CycleTree::clone() const {
     return new CycleTree(*this);
 }
 
-CycleTree::~Tree() {
-    for(Tree* childtree:children)
-    {
-        delete childtree;
-    }
-}
+//CycleTree::~Tree() {
+//    for(Tree* childtree:children)
+//    {
+//        delete childtree;
+//    }
+//}
 //int CycleTree::getCycle() const {return currCycle;}

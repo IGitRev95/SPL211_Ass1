@@ -3,11 +3,12 @@
 
 #include <vector>
 #include <string>
-#include "Tree.h"
-#include "Graph.h"
 #include <queue>
+#include "Graph.h"
 #include "Agent.h"
 
+class Graph;
+class Agent;
 
 enum TreeType{
   Cycle,
@@ -36,7 +37,9 @@ public:
     bool isInfectedQueueEmptey();//implemented
 
     int get_cycleCurrNum() const ;//implemented
-     Graph &getGraphReference() const;
+    Graph &getGraphReference();
+
+
 
     void clean();
 

@@ -2,9 +2,14 @@
 #define AGENT_H_
 
 #include <vector>
-// forward declaration
+#include "Session.h"
+#include "Tree.h"
+#include "Graph.h"
 using namespace std;
+
+// forward declaration
 class Session;
+
 class Agent{
 public:
     Agent();

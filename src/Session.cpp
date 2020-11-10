@@ -3,13 +3,38 @@
 //
 
 #include "include/Session.h"
-#include <iostream>
 #include <fstream>
 #include "include/json.hpp"
 
 
 using namespace std;
 using json = nlohmann::json;
+Session::Session(const string &path): g(), treeType(), agents(), infecteds(), _cycleCurrNum(0) {
+    json input_data;
+    ifstream jasonIn(path);
+    jasonIn >> input_data;
+    vector<int> CarryNodes= {};
+    int CarryNode;
+    Agent* agent;
+    for (auto &elem: input_data["agents"]) {
+
+        if (elem.front() == "C")
+            agent= new ContactTracer();
+        else {
+            CarryNode=elem.at(1);
+            agent = new Virus(CarryNode);
+            CarryNodes.push_back(CarryNode);
+        }
+        addAgent(*agent);
+        delete agent;
+    }
+    g.updateMatrix(input_data["graph"], CarryNodes);
+    string tree= input_data["tree"].front();
+    if (tree=="M") treeType=MaxRank;
+    if (tree == "C") treeType=Cycle;
+    if (tree == "R") treeType=Root;
+}
+
 void Session::simulate() {
     bool terminate= g.SessionDone();
     int CurrentSize;
@@ -25,32 +50,6 @@ void Session::simulate() {
     }
 //    make output json
 }
-
-Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0) {
-    json input_data;
-    ifstream jasonIn(path);
-    jasonIn >> input_data;
-  vector<int> CarryNodes= {};
-  int CarryNode;
-  Agent* agent;
-    for (auto &elem: input_data["agents"]) {
-
-        if (elem.front() == "C")
-            agent= new ContactTracer();
-        else {
-            CarryNode=elem.at(1);
-            agent = new Virus(CarryNode);
-            CarryNodes.push_back(CarryNode);
-        }
-        addAgent(*agent);
-        delete agent;
-    }
-    g.updatematrix(input_data["graph"], CarryNodes);
-    string tree= input_data["tree"].front();
-    if (tree=="M") treeType=MaxRank;
-    if (tree == "C") treeType=Cycle;
-    if (tree == "R") treeType=Root;
-    }
 int Session::dequeueInfected() {
     int number= infecteds.front();
     infecteds.pop();
@@ -72,7 +71,7 @@ TreeType Session::getTreeType() const {
  //--------------------------------------------------
  int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
 //---------------------------------------------------
- Graph & Session::getGraphReference() const {
+ Graph & Session::getGraphReference(){
     return g;
 }
 //--------------------------------------------------
@@ -132,6 +131,7 @@ void Session:: clean(){
         for (Agent* agent: other.agents) addAgent(*agent);
         infecteds= other.infecteds;
     }
+
 
 
 

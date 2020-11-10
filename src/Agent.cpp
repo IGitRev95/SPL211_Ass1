@@ -3,7 +3,7 @@
 //
 
 #include "include/Agent.h"
-#include "include/Tree.h"
+
 using namespace std;
 //Agent-
 Agent::Agent(): MakeChanges(true) {}
@@ -13,22 +13,22 @@ bool Agent:: getMakeChanges() const{
 
 //ContactTracer-
 ContactTracer:: ContactTracer(): Agent(){}
-void ContactTracer::act(Session &session) {};
-//void ContactTracer::act(Session &session) {
-//    if(!session.isInfectedQueueEmptey())
-//    {
-//        int root = session.dequeueInfected();
-//        Tree *curr_infected_tree = Tree::createTree(session,root);
-//        int node_to_disconnect = curr_infected_tree->traceTree();
-//        Graph phi(session.getGraphReference());//--!!on stack
-//        phi.disconnect(node_to_disconnect);
-//        //session.setGraph(phi); //!they said that not need to implement
-//        /*TODO: creat tree matching session treetype using BFS
-//          call traceTree method for picking node for disconnecting
-//          disconnect node and update relevant fields
-//         */
-//    }
-//}
+
+void ContactTracer::act(Session &session) {
+    if(!session.isInfectedQueueEmptey())
+    {
+        int root = session.dequeueInfected();
+        Tree *curr_infected_tree = Tree::createTree(session,root);
+        int node_to_disconnect = curr_infected_tree->traceTree();
+        Graph phi(session.getGraphReference());//--!!on stack
+        phi.disconnect(node_to_disconnect);
+        //session.setGraph(phi); //!they said that not need to implement
+        /*TODO: creat tree matching session treetype using BFS
+          call traceTree method for picking node for disconnecting
+          disconnect node and update relevant fields
+         */
+    }
+}
 Agent *ContactTracer:: clone() const {
     return new ContactTracer();
 }

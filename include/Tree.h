@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Session.h"
+
 class Session;
 
 class Tree{
@@ -29,7 +30,7 @@ public:
     CycleTree(const CycleTree& cT);
     virtual int traceTree();
     virtual Tree *clone() const ;
-    virtual ~Tree();
+    //virtual ~Tree();
     //int getCycle()const ;
 private:
     int currCycle;

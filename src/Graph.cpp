@@ -2,12 +2,13 @@
 // Created by spl211 on 03/11/2020.
 //
 #include <string>
+#include "include/Session.h"
 #include "include/Graph.h"
 
 
 using namespace std;
 //Graph::Graph(const std::vector<std::vector<int>>& matrix):edges(matrix) {};
-void Graph::updatematrix(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
+void Graph::updateMatrix(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
     for(vector<int> edge: matrix) {
         edges.push_back(edge);
         IsInfectedArray.push_back(0);
@@ -31,7 +32,9 @@ void Graph::CarryNode(int nodeInd) {
 vector<int> Graph::getEdgesOf(int v) const {
     return edges.at(v);
 }
+
 Graph::Graph(): edges(), IsInfectedArray(){}
+
 // copy Constructor
 Graph::Graph(const Graph& other):edges(other.edges) {}
 
@@ -66,10 +69,12 @@ Graph& Graph::operator=(const Graph& other)
     IsInfectedArray=other.IsInfectedArray;
     return *this;
 }
+
 bool Graph:: Connected(int v1, int v2) const{
     if (v1!=v2) return (edges.at(v1).at(v2)==1);
     return false;
 }
+
 bool Graph::SessionDone() {
     int size= edges.size();
     bool  terminate=true;
@@ -85,9 +90,10 @@ bool Graph::SessionDone() {
         }
     }}
 
-Tree* Graph::BFSScan(int rootNode, const Session &session) {
+Tree* Graph::BFSScan(int rootNode) {
 
-    vector<vector<int>> bfsData(session.getGraphReference().getNumOfVertices());
+    int numOfvert = getNumOfVertices();
+    vector<vector<int>> bfsData(numOfvert);
     /*
      * table of [0]color,[1]distance,[2]parent
      */
@@ -104,7 +110,7 @@ Tree* Graph::BFSScan(int rootNode, const Session &session) {
     {
         int u = bfsQ.front();
         bfsQ.pop();
-        for(int v:session.getGraphReference().getEdgesOf(u))
+        for(int v : getEdgesOf(u))
         {
             if (bfsData.at(v).at(0)==0)
             {
@@ -118,10 +124,10 @@ Tree* Graph::BFSScan(int rootNode, const Session &session) {
     }
 //------------------------------------------------
     //MEMORY LEAK OPTION
-    vector<Tree*> nodes_control(session.getGraphReference().getNumOfVertices());
+    vector<Tree*> nodes_control(numOfvert);
     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
     {
-        nodes_control.at(i) = Tree::createTree(session,i);
+//        nodes_control.at(i) = Tree::createTree(session, i);
     }
 
     for (int i = 0; i < nodes_control.size(); i=i+1)
@@ -136,8 +142,6 @@ Tree* Graph::BFSScan(int rootNode, const Session &session) {
     }
     return ans;
 }
-
-
 
 void Graph:: clean(){
     edges.clear();
