@@ -11,6 +11,7 @@ public:
     Graph();
 
   //  Graph(const std::vector<std::vector<int>>& matrix);
+  const std::vector<std::vector<int>>& GetEdges() const;
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
     int NodeStatus(int nodeInd);
@@ -19,7 +20,7 @@ public:
     Graph& operator=(const Graph& other); // copy assignment operator
     void disconnect(int node);//disconnecting node from the graph
     void clean();
-    std::vector<int> getEdgesOf(int v) const;
+    const std::vector<int>& getEdgesOf(int v) const;
     bool SessionDone(); // checking if the Session done
     bool Connected(int v1,int v2) const;
 private:

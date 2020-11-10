@@ -3,9 +3,15 @@
 //
 #include <string>
 #include "include/Graph.h"
-
+/**
+ * at edges 1 between v1,v2 means they are connected
+ * at IsinfectedArray 0- means not infected, 1- means Carry 2- means infected
+ */
 using namespace std;
 //Graph::Graph(const std::vector<std::vector<int>>& matrix):edges(matrix) {};
+const vector<vector<int>>& Graph::GetEdges() const {
+return edges;
+}
 void Graph::updatematrix(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
     for(vector<int> edge: matrix) {
         edges.push_back(edge);
@@ -16,6 +22,7 @@ void Graph::updatematrix(const std::vector<std::vector<int>>& matrix, const std:
     }
 }
 int Graph::NodeStatus(int nodeInd) {
+    //0- nof infected, 1- carry, 2- infected
     return IsInfectedArray.at((nodeInd));
 }
 bool Graph::isInfected(int nodeInd) {
@@ -27,12 +34,12 @@ void Graph::infectNode(int nodeInd) {
 void Graph::CarryNode(int nodeInd) {
     if (!isInfected(nodeInd)) IsInfectedArray.at(nodeInd)=1;
 }
-vector<int> Graph::getEdgesOf(int v) const {
+const vector<int>& Graph::getEdgesOf(int v) const {
     return edges.at(v);
 }
 Graph::Graph(): edges(), IsInfectedArray(){}
 // copy Constructor
-Graph::Graph(const Graph& other):edges(other.edges) {}
+Graph::Graph(const Graph& other):edges(other.edges),IsInfectedArray(other.IsInfectedArray) {}
 
 //Disconnect
 void Graph::disconnect(int node) {
@@ -65,6 +72,7 @@ bool Graph:: Connected(int v1, int v2) const{
     if (v1!=v2) return (edges.at(v1).at(v2)==1);
     return false;
 }
+// checking if the session is done
 bool Graph::SessionDone() {
     int size= edges.size();
     bool  terminate=true;
@@ -80,6 +88,7 @@ bool Graph::SessionDone() {
         }
 
     }
+    return terminate;
 }
 void Graph:: clean(){
     edges.clear();

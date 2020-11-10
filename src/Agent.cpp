@@ -1,23 +1,21 @@
 //
 // Created by spl211 on 03/11/2020.
 //
-
+#include<iostream>
 #include "include/Agent.h"
 #include "include/Tree.h"
 using namespace std;
 //Agent-
-Agent::Agent(): MakeChanges(true) {}
-bool Agent:: getMakeChanges() const{
-    return MakeChanges;
-}
+Agent::Agent()= default;
+Agent::~Agent(){cout<<"agent destructor"<<endl;};
+
 
 //ContactTracer-
-ContactTracer:: ContactTracer(): Agent(){}
+ContactTracer:: ContactTracer()= default;
 void ContactTracer::act(Session &session) {};
 //void ContactTracer::act(Session &session) {
-//    if(!session.isInfectedQueueEmptey())
-//    {
 //        int root = session.dequeueInfected();
+//          if(root!=-1) {
 //        Tree *curr_infected_tree = Tree::createTree(session,root);
 //        int node_to_disconnect = curr_infected_tree->traceTree();
 //        Graph phi(session.getGraphReference());//--!!on stack
@@ -33,26 +31,21 @@ Agent *ContactTracer:: clone() const {
     return new ContactTracer();
 }
 //Virus
-Virus:: Virus(int nodeInd): Agent(), nodeInd(nodeInd) {}
+Virus:: Virus(int nodeInd):nodeInd(nodeInd) {}
 void Virus::act(Session &session) {
-    MakeChanges= false;
     int v= this->nodeInd;
     Graph& current= session.getGraphReference();
     if (!(current.isInfected(v))) {
-        MakeChanges=true;
         current.infectNode(v);
         session.enqueueInfected(v);
     }
     vector<int> currentNodeEdges= current.getEdgesOf(v);
     int size= currentNodeEdges.size();
     for (int i=0;i<size;i=i+1){
-        if(i!=v&& currentNodeEdges.at(i)==1&&current.NodeStatus(v)==0){
-            MakeChanges=true;
+        if(i!=v&& currentNodeEdges.at(i)==1&&current.NodeStatus(i)==0){
           current.CarryNode(i);
-            Virus *vi;
-            vi = new Virus(i);
-          session.addAgent(*vi);
-            delete vi;
+            Virus vi=Virus(i);
+          session.addAgent(vi);
             break;
         }
     }
