@@ -132,6 +132,10 @@ void Session:: clean(){
         infecteds= other.infecteds;
     }
 
+const Graph &Session::getG() const {
+    return g;
+}
+
 
 
 

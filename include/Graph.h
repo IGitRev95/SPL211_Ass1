@@ -28,7 +28,7 @@ public:
     void clean();
     std::vector<int> getEdgesOf(int v) const;
 
-    Tree* BFSScan(int rootNode);
+    std::vector<std::vector<int>>* BFSScan(int rootNode) const;
 
     bool SessionDone(); // checking if the Session done
     bool Connected(int v1,int v2) const;

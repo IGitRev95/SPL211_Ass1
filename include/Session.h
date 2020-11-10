@@ -37,8 +37,9 @@ public:
     bool isInfectedQueueEmptey();//implemented
 
     int get_cycleCurrNum() const ;//implemented
-    Graph &getGraphReference();
+    Graph & getGraphReference();
 
+    const Graph &getG() const;
 
 
     void clean();

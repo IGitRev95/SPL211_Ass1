@@ -23,22 +23,46 @@ Tree::~Tree() {
 }
 
  Tree* Tree::createTree(const Session &session, int rootLabel){
-     switch (session.getTreeType()) {
-         case Root:
-         {
-             return new RootTree(rootLabel);//Should be deleted by CT
-         }
-         case MaxRank:
-         {
-             return new MaxRankTree(rootLabel);//Should be deleted by CT
-         }
-         case Cycle:
-         {
-             return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
-         }
+     //CAllBFS
+
+     //MEMORY LEAK OPTION
+     vector<vector<int>>* bfsData(session.getG().BFSScan(rootLabel));
+     vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
+     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+     {
+        nodes_control.at(i) = Tree::createNodeTree(session, i);
      }
 
+     for (int i = 0; i < nodes_control.size(); i=i+1)
+     {
+         nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
+     }
+     delete bfsData;
+     Tree* ans(nodes_control.at(rootLabel)->clone());
+     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+     {
+         delete nodes_control.at(i);
+     }
+     return ans;
 }
+
+Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
+    switch (session.getTreeType()) {
+        case Root:
+        {
+            return new RootTree(rootLabel);//Should be deleted by CT
+        }
+        case MaxRank:
+        {
+            return new MaxRankTree(rootLabel);//Should be deleted by CT
+        }
+        case Cycle:
+        {
+            return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
+        }
+    }
+}
+
 //
 ////RootTree methods implementation
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}

@@ -16,6 +16,7 @@ public:
 
 
     static Tree* createTree(const Session& session, int rootLabel);
+    static Tree* createNodeTree(const Session& session, int rootLabel);
     virtual int traceTree()=0;
     virtual Tree *clone() const = 0;
     virtual ~Tree();

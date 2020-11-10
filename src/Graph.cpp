@@ -90,57 +90,58 @@ bool Graph::SessionDone() {
         }
     }}
 
-Tree* Graph::BFSScan(int rootNode) {
+vector<vector<int>>* Graph::BFSScan(int rootNode) const {
 
-    int numOfvert = getNumOfVertices();
-    vector<vector<int>> bfsData(numOfvert);
+    int numOfVert = getNumOfVertices();
+    std::vector<std::vector<int>>* bfsData=new vector<vector<int>>(numOfVert);
     /*
      * table of [0]color,[1]distance,[2]parent
      */
-    for(auto &vec: bfsData)
+    for(auto &vec: *bfsData)
     {
         vec.push_back(0);
         vec.push_back(0);
         vec.push_back(-1);
     }
-    bfsData.at(rootNode).at(0)=1;
+    bfsData->at(rootNode).at(0)=1;
     queue<int> bfsQ;
     bfsQ.push(rootNode);
-    while (!bfsQ.empty())
+    while (!bfsQ.empty()) //BFS run
     {
         int u = bfsQ.front();
         bfsQ.pop();
         for(int v : getEdgesOf(u))
         {
-            if (bfsData.at(v).at(0)==0)
+            if (bfsData->at(v).at(0)==0)
             {
-                bfsData.at(v).at(0)=1;
-                bfsData.at(v).at(1)=bfsData.at(u).at(1)+1;
-                bfsData.at(v).at(2)=u;
+                bfsData->at(v).at(0)=1;
+                bfsData->at(v).at(1)=bfsData->at(u).at(1)+1;
+                bfsData->at(v).at(2)=u;
                 bfsQ.push(v);
             }
         }
-        bfsData.at(u).at(0)=3;
+        bfsData->at(u).at(0)=3;
     }
-//------------------------------------------------
-    //MEMORY LEAK OPTION
-    vector<Tree*> nodes_control(numOfvert);
-    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-    {
-//        nodes_control.at(i) = Tree::createTree(session, i);
-    }
-
-    for (int i = 0; i < nodes_control.size(); i=i+1)
-    {
-        nodes_control.at(bfsData.at(i).at(2))->addChild(*nodes_control.at(i));
-    }
-
-    Tree* ans(nodes_control.at(rootNode)->clone());
-    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-    {
-        delete nodes_control.at(i);
-    }
-    return ans;
+    return bfsData;
+////------------------------------------------------
+//    //MEMORY LEAK OPTION
+//    vector<Tree*> nodes_control(numOfVert);
+//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//    {
+////        nodes_control.at(i) = Tree::createTree(session, i);
+//    }
+//
+//    for (int i = 0; i < nodes_control.size(); i=i+1)
+//    {
+//        nodes_control.at(bfsData.at(i).at(2))->addChild(*nodes_control.at(i));
+//    }
+//
+//    Tree* ans(nodes_control.at(rootNode)->clone());
+//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//    {
+//        delete nodes_control.at(i);
+//    }
+//    return ans;
 }
 
 void Graph:: clean(){
