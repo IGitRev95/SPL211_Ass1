@@ -12,11 +12,12 @@ class Tree;
 class Graph {
 public:
 
-    Graph();
-
     void updateMatrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
 
-    //  Graph(const std::vector<std::vector<int>>& matrix);
+    Graph();
+
+  //  Graph(const std::vector<std::vector<int>>& matrix);
+  const std::vector<std::vector<int>>& GetEdges() const;
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
     int NodeStatus(int nodeInd);
@@ -26,7 +27,7 @@ public:
     void disconnect(int node);//disconnecting node from the graph
     int getNumOfVertices() const;
     void clean();
-    std::vector<int> getEdgesOf(int v) const;
+    const std::vector<int>& getEdgesOf(int v) const;
 
     std::vector<std::vector<int>>* BFSScan(int rootNode) const;
 
@@ -36,6 +37,7 @@ public:
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;
+
 };
 
 #endif

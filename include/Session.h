@@ -34,7 +34,7 @@ public:
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
     void copy(const Session& other);
-    bool isInfectedQueueEmptey();//implemented
+//    bool isInfectedQueueEmptey();//implemented
 
     int get_cycleCurrNum() const ;//implemented
     Graph & getGraphReference();
@@ -51,6 +51,7 @@ private:
     std::vector<Agent*> agents;
     std::queue<int> infecteds;
     int _cycleCurrNum;
+    std::vector<int> numofinfecteds;
 };
 
 #endif
