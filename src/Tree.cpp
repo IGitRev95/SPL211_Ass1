@@ -15,6 +15,13 @@ Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(chil
 //    this->children.push_back(child.clone());
 //}
 
+Tree::Tree(const Tree &other): node(other.node), children(vector<Tree*>(other.children.size())){
+
+//    for (int i=0;i<other.children.size();i++) children.at(i)->clone();
+
+
+}
+
 void Tree::addChild( Tree &child) {
     this->children.push_back(&child);
 }

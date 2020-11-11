@@ -19,6 +19,9 @@ public:
     static Tree* createTree(const Session& session, int rootLabel);
     static Tree* createNodeTree(const Session& session, int rootLabel);
     virtual int traceTree()=0;
+
+    //----- Rule of Five/
+    Tree (const Tree &other); //copy constructor
     virtual Tree *clone() const = 0;
     virtual ~Tree();
 protected:
@@ -36,8 +39,6 @@ public:
     int getCycle()const ;
 private:
     int currCycle;
-
-
 };
 
 class MaxRankTree: public Tree{

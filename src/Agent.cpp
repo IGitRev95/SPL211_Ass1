@@ -7,7 +7,7 @@
 using namespace std;
 //Agent-
 Agent::Agent()= default;
-Agent::~Agent(){cout<<"agent destructor"<<endl;};
+Agent::~Agent()=default;
 
 
 //ContactTracer-
