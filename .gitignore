@@ -1,1 +1,10 @@
 /.idea/
+/cmake-build-debug/Ass1_new
+/cmake-build-debug/SPL211_Ass1.cbp
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/CXX.includecache
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/depend.internal
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Agent.cpp.o
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Graph.cpp.o
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/main.cpp.o
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Session.cpp.o
+/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Tree.cpp.o
