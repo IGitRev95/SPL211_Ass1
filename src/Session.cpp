@@ -97,7 +97,6 @@ Session::~Session(){
     while (!infecteds.empty()) infecteds.pop();
     g.clean();
     numofinfecteds.clear();
-    cout<<"destructor session"<<endl;
 }
 //copy constructor
 Session::Session(const Session& other): g(other.g),

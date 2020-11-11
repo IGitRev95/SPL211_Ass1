@@ -25,14 +25,14 @@ public:
     int dequeueInfected(); // implemented
     TreeType getTreeType() const; // implemented
 
-    // Rul of Five
+    // Rule of Five
     virtual ~ Session(); // destructor
     Session(const Session &other); // copy constructor
     Session & operator=(const Session& other); // copy assignment operator
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
     void copy(const Session& other);
-//    bool isInfectedQueueEmptey();//implemented
+//    bool isInfectedQueueEmptey();//implemented not needed
 
     int get_cycleCurrNum() const ;//implemented
      Graph &getGraphReference();

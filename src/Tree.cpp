@@ -8,6 +8,12 @@ using namespace std;
 
 Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
 
+Tree::Tree(const Tree &other): node(other.node), children(vector<Tree*>(other.children.size())){
+
+//    for (int i=0;i<other.children.size();i++) children.at(i)->clone();
+
+
+}
 //Tree::Tree(int rootLabel)//BFS
 //{
 //    std::vector<std::vector<int>> verticesInfo;

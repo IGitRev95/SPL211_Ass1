@@ -17,6 +17,8 @@ public:
     static Tree* createTree(const Session& session, int rootLabel);
     virtual int traceTree()=0;
 
+    //----- Rule of Five/
+    Tree (const Tree &other); //copy constructor
 protected:
     int node;
     std::vector<Tree*> children;
