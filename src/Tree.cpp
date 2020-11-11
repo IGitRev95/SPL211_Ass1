@@ -11,8 +11,12 @@ Tree::Tree(int rootLabel):node(rootLabel),children(){}
 
 Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
 
-void Tree::addChild(const Tree &child) {
-    this->children.push_back(child.clone());
+//void Tree::addChild(const Tree &child) {
+//    this->children.push_back(child.clone());
+//}
+
+void Tree::addChild( Tree &child) {
+    this->children.push_back(&child);
 }
 
 Tree::~Tree() {
@@ -40,10 +44,10 @@ Tree::~Tree() {
      }
      delete bfsData;
      Tree* ans(nodes_control.at(rootLabel)->clone());
-     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-     {
-         delete nodes_control.at(i);
-     }
+//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//     {
+//         delete nodes_control.at(i);
+//     }
      return ans;
 }
 
@@ -64,7 +68,7 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
     }
 }
 
-//
+////CycleTree-------------
 
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
@@ -81,7 +85,12 @@ Tree* CycleTree::clone() const {
 
 int CycleTree::getCycle() const {return currCycle;}
 
+
+////----------------------MaxRankTree
+
 MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
+
+MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other.node,other.children){}
 
 int MaxRankTree::traceTree() {
     return 0;

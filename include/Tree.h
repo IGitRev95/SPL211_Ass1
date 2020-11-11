@@ -12,7 +12,8 @@ public:
 
     Tree(int node, const std::vector<Tree *> &children);
 
-    void addChild(const Tree& child);
+    //void addChild(const Tree& child);
+    void addChild( Tree& child);
 
 
     static Tree* createTree(const Session& session, int rootLabel);
@@ -42,6 +43,10 @@ private:
 class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);
+
+    //copy constructor
+    MaxRankTree(const MaxRankTree& other);
+
     virtual int traceTree();
     virtual Tree *clone() const ;
 
