@@ -1,25 +1,27 @@
 //
 // Created by spl211 on 03/11/2020.
 //
-
+#include <iostream>
 #include <queue>
 #include "include/Tree.h"
 
 using namespace std;
 
+////Tree-----------
+
 Tree::Tree(int rootLabel):node(rootLabel),children(){}
 
-Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
+//Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
 
 //void Tree::addChild(const Tree &child) {
 //    this->children.push_back(child.clone());
 //}
 
-Tree::Tree(const Tree &other): node(other.node), children(vector<Tree*>(other.children.size())){
-
-//    for (int i=0;i<other.children.size();i++) children.at(i)->clone();
-
-
+Tree::Tree(const Tree &other): Tree(other.node){
+    for(Tree* tree : other.children)
+    {
+        children.push_back(tree->clone());
+    }
 }
 
 void Tree::addChild( Tree &child) {
@@ -27,13 +29,21 @@ void Tree::addChild( Tree &child) {
 }
 
 Tree::~Tree() {
-    for(Tree* childtree:children)
-    {
-            delete childtree;
-    }
+    if(!children.empty())
+        clear();
+    cout<<"Tree of node: "<<node<<" is clear"<<endl;
 }
 
- Tree* Tree::createTree(const Session &session, int rootLabel){
+void Tree::clear() {
+    for(Tree* childTree:children)
+    {
+        if(childTree)
+            delete childTree;
+    }
+    children.clear();
+}
+
+Tree* Tree::createTree(const Session &session, int rootLabel){
      //CAllBFS
 
      //MEMORY LEAK OPTION
@@ -46,12 +56,20 @@ Tree::~Tree() {
 
      for (int i = 0; i < nodes_control.size(); i=i+1)
      {
-         if(i!=rootLabel)
+         if(-1!=bfsData->at(i).at(2))
              nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
      }
      delete bfsData;
      Tree* ans(nodes_control.at(rootLabel)->clone());
-//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+
+
+//    while(!nodes_control.empty()){
+//        delete nodes_control.front();
+//        nodes_control.back()
+//    }
+
+
+//for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
 //     {
 //         delete nodes_control.at(i);
 //     }
@@ -80,7 +98,7 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
-CycleTree::CycleTree(const CycleTree &cT):Tree(cT.node,cT.children),currCycle(cT.currCycle) {}
+CycleTree::CycleTree(const CycleTree &other): Tree(other), currCycle(other.currCycle) {}
 
 int CycleTree::traceTree() {
     return 0;
@@ -90,6 +108,8 @@ Tree* CycleTree::clone() const {
     return new CycleTree(*this);
 }
 
+//CycleTree::~CycleTree() noexcept {}
+
 int CycleTree::getCycle() const {return currCycle;}
 
 
@@ -97,7 +117,7 @@ int CycleTree::getCycle() const {return currCycle;}
 
 MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
 
-MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other.node,other.children){}
+MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other){}
 
 int MaxRankTree::traceTree() {
     return 0;
@@ -108,7 +128,7 @@ Tree* MaxRankTree::clone() const {
 }
 ////RootTree methods implementation
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
-
+RootTree::RootTree(const RootTree &other):Tree(other) {}
 int RootTree::traceTree() {return node;}
 
 Tree * RootTree::clone() const {

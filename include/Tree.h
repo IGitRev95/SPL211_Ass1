@@ -10,7 +10,7 @@ class Tree{
 public:
     Tree(int rootLabel);
 
-    Tree(int node, const std::vector<Tree *> &children);
+    //Tree(int node, const std::vector<Tree *> &children);
 
     //void addChild(const Tree& child);
     void addChild( Tree& child);
@@ -21,9 +21,10 @@ public:
     virtual int traceTree()=0;
 
     //----- Rule of Five/
-    Tree (const Tree &other); //copy constructor
+    Tree(const Tree &other); //copy constructor
     virtual Tree *clone() const = 0;
-    virtual ~Tree();
+    virtual ~ Tree();
+    void clear();
 protected:
     int node;
     std::vector<Tree*> children;
@@ -32,10 +33,10 @@ protected:
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
-    CycleTree(const CycleTree& cT);
+    CycleTree(const CycleTree& other);
     virtual int traceTree();
     virtual Tree *clone() const ;
-    //virtual ~Tree();
+    //virtual ~ CycleTree();
     int getCycle()const ;
 private:
     int currCycle;
@@ -47,17 +48,20 @@ public:
 
     //copy constructor
     MaxRankTree(const MaxRankTree& other);
-
     virtual int traceTree();
     virtual Tree *clone() const ;
+    //virtual ~ MaxRankTree();
 
 };
 
 class RootTree: public Tree{
 public:
     RootTree(int rootLabel);
+    //copy constructor
+    RootTree(const RootTree& other);
     virtual int traceTree();
     virtual Tree *clone() const ;
+    //virtual ~ RootTree();
 
 };
 
