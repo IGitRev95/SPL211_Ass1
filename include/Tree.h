@@ -12,7 +12,7 @@ public:
 
     //Tree(int node, const std::vector<Tree *> &children);
 
-    //void addChild(const Tree& child);
+    void addChild(const Tree& child);
     void addChild( Tree& child);
 
 

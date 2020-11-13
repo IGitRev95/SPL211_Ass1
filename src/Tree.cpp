@@ -1,7 +1,7 @@
 //
 // Created by spl211 on 03/11/2020.
 //
-#include <iostream>
+//#include <iostream>
 #include <queue>
 #include "include/Tree.h"
 
@@ -13,9 +13,9 @@ Tree::Tree(int rootLabel):node(rootLabel),children(){}
 
 //Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
 
-//void Tree::addChild(const Tree &child) {
-//    this->children.push_back(child.clone());
-//}
+void Tree::addChild(const Tree &child) {
+    this->children.push_back(child.clone());
+}
 
 Tree::Tree(const Tree &other): Tree(other.node){
     for(Tree* tree : other.children)
@@ -31,14 +31,13 @@ void Tree::addChild( Tree &child) {
 Tree::~Tree() {
     if(!children.empty())
         clear();
-    cout<<"Tree of node: "<<node<<" is clear"<<endl;
+    //cout<<"Tree of node: "<<node<<" is clear"<<endl;
 }
 
 void Tree::clear() {
     for(Tree* childTree:children)
     {
-        if(childTree)
-            delete childTree;
+        delete childTree;
     }
     children.clear();
 }
@@ -59,21 +58,16 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
          if(-1!=bfsData->at(i).at(2))
              nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
      }
-     delete bfsData;
      Tree* ans(nodes_control.at(rootLabel)->clone());
 
+     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+     {
+         if(-1==bfsData->at(i).at(2))
+          delete nodes_control.at(i);
+     }
 
-//    while(!nodes_control.empty()){
-//        delete nodes_control.front();
-//        nodes_control.back()
-//    }
-
-
-//for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-//     {
-//         delete nodes_control.at(i);
-//     }
-     return ans;
+    delete bfsData;
+    return ans;
 }
 
 Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
