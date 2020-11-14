@@ -31,7 +31,7 @@ cout<<output<<endl;
 
 }
 
-Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0) {
+Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0),numofinfecteds(0) {
     json input_data;
     ifstream jasonIn(path);
     jasonIn >> input_data;
