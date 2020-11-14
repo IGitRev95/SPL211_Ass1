@@ -198,14 +198,21 @@ std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
     winner->push_back(children.size());
     winner->push_back(currDepth);
     winner->push_back(node);
-    for(Tree* child:children)
-    {
+    for(Tree* child:children){
+
         MaxRankTree* maxRankChild=static_cast<MaxRankTree*>(child);
         vector<int>* candidate= maxRankChild->maxRankWinRec(currDepth + 1);
-        if ((candidate->at(0)>winner->at(0))||
-        ((candidate->at(1)<winner->at(1))||(candidate->at(2)<winner->at(2))))
-        {
+        if (candidate->at(0) > winner->at(0)){
             *winner=*candidate;
+        }
+        else if (candidate->at(0) == winner->at(0)){
+                if (candidate->at(1) < winner->at(1)){
+                    *winner=*candidate;
+                } else if (candidate->at(1) == winner->at(1)){
+                            if (candidate->at(2) < winner->at(2)){
+                                *winner=*candidate;
+                            }
+                        }
         }
         delete candidate;
     }
