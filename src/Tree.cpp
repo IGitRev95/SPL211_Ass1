@@ -42,6 +42,18 @@ void Tree::clear() {
     children.clear();
 }
 
+const Tree & Tree::operator=(const Tree &other) {//TODO: test tree ass oprt
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        for(Tree* tree:other.children)
+        {
+            children.push_back(tree->clone());
+        }
+    }
+    return *this;
+}
+
 Tree* Tree::createTree(const Session &session, int rootLabel){
      //CAllBFS
 
@@ -102,7 +114,19 @@ Tree* CycleTree::clone() const {
     return new CycleTree(*this);
 }
 
-//CycleTree::~CycleTree() noexcept {}
+const CycleTree & CycleTree::operator=(const CycleTree &other) {
+    if(this!=&other)
+    {
+        clear();
+        node=other.node;
+        currCycle=other.currCycle;
+        for(Tree* tree:other.children)
+        {
+            children.push_back(tree->clone());
+        }
+    }
+    return *this;
+}
 
 int CycleTree::getCycle() const {return currCycle;}
 

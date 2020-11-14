@@ -25,6 +25,7 @@ public:
     virtual Tree *clone() const = 0;
     virtual ~ Tree();
     void clear();
+    virtual const Tree& operator=(const Tree& other);//Ass oprt
 protected:
     int node;
     std::vector<Tree*> children;
@@ -36,7 +37,8 @@ public:
     CycleTree(const CycleTree& other);
     virtual int traceTree();
     virtual Tree *clone() const ;
-    //virtual ~ CycleTree();
+    virtual ~ CycleTree() = default;
+    virtual const CycleTree& operator=(const CycleTree& other);//Ass oprt
     int getCycle()const ;
 private:
     int currCycle;
@@ -50,7 +52,8 @@ public:
     MaxRankTree(const MaxRankTree& other);
     virtual int traceTree();
     virtual Tree *clone() const ;
-    //virtual ~ MaxRankTree();
+    virtual ~ MaxRankTree() = default;
+    virtual const MaxRankTree& operator=(const MaxRankTree& other) = default;
 
 };
 
@@ -61,8 +64,8 @@ public:
     RootTree(const RootTree& other);
     virtual int traceTree();
     virtual Tree *clone() const ;
-    //virtual ~ RootTree();
-
+    virtual ~ RootTree() = default;
+    virtual const RootTree& operator=(const RootTree& other) = default;
 };
 
 #endif
