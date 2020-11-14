@@ -29,7 +29,7 @@ public:
     void clean();
     const std::vector<int>& getEdgesOf(int v) const;
 
-    std::vector<std::vector<int>>* BFSScan(int rootNode) const;
+    std::vector<std::vector<int>> BFSScan(int rootNode) const;
 
     bool SessionDone(); // checking if the Session done
     bool Connected(int v1,int v2) const;

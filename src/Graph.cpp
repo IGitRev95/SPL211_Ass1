@@ -99,19 +99,19 @@ bool Graph::SessionDone() {
     return terminate;
 }
 
-vector<vector<int>>* Graph::BFSScan(int rootNode) const {
+vector<vector<int>> Graph::BFSScan(int rootNode) const {
     int numOfVert = getNumOfVertices();
-    std::vector<std::vector<int>>* bfsData=new vector<vector<int>>(numOfVert);
+    std::vector<std::vector<int>> bfsData(numOfVert);
     /*
      * table of [0]color,[1]distance,[2]parent
      */
-    for(auto &vec: *bfsData)
+    for(vector<int> &vec: bfsData)
     {
         vec.push_back(0);
         vec.push_back(0);
         vec.push_back(-1);
     }
-    bfsData->at(rootNode).at(0)=1;
+    bfsData.at(rootNode).at(0)=1;
     queue<int> bfsQ;
     bfsQ.push(rootNode);
     while (!bfsQ.empty()) //BFS run
@@ -122,16 +122,16 @@ vector<vector<int>>* Graph::BFSScan(int rootNode) const {
         for(int v1 : getEdgesOf(u))
         {
             if(v1==1) {
-                if (bfsData->at(v).at(0) == 0) {
-                    bfsData->at(v).at(0) = 1;
-                    bfsData->at(v).at(1) = bfsData->at(u).at(1) + 1;
-                    bfsData->at(v).at(2) = u;
+                if (bfsData.at(v).at(0) == 0) {
+                    bfsData.at(v).at(0) = 1;
+                    bfsData.at(v).at(1) = bfsData.at(u).at(1) + 1;
+                    bfsData.at(v).at(2) = u;
                     bfsQ.push(v);
                 }
             }
             v=v+1;
         }
-        bfsData->at(u).at(0)=3;
+        bfsData.at(u).at(0)=3;
     }
     return bfsData;
 }

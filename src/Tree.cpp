@@ -81,7 +81,7 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
      //CAllBFS
 
      //MEMORY LEAK OPTION
-     vector<vector<int>>* bfsData(session.getG().BFSScan(rootLabel));
+     vector<vector<int>> bfsData(session.getG().BFSScan(rootLabel));
      vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
      for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
      {
@@ -90,18 +90,17 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
 
      for (int i = 0; i < nodes_control.size(); i=i+1)
      {
-         if(-1!=bfsData->at(i).at(2))
-             nodes_control.at(bfsData->at(i).at(2))->addRealChild(*nodes_control.at(i));
+         if(-1!=bfsData.at(i).at(2))
+             nodes_control.at(bfsData.at(i).at(2))->addRealChild(*nodes_control.at(i));
      }
      Tree* ans(nodes_control.at(rootLabel)->clone());
 
      for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
      {
-         if(-1==bfsData->at(i).at(2))
+         if(-1==bfsData.at(i).at(2))
           delete nodes_control.at(i);
      }
 
-    delete bfsData;
     return ans;
 }
 
