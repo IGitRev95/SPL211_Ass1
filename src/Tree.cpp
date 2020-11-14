@@ -181,7 +181,35 @@ MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
 MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other){}
 
 int MaxRankTree::traceTree() {
-    return 0;
+    vector<int>* maxRankNodeDetails= maxRankWinRec(0);
+    int ans=maxRankNodeDetails->at(2);
+    delete maxRankNodeDetails;
+    return ans;
+}
+
+std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
+    /*
+     * every sub tree returns a triplet, as a vector,
+     * of values of the max rank node in its self sourced tree.
+     * the triplet structure is as foolows:
+     * [0]:=Rank , [1]:=Depth, [2]:=node
+    */
+    vector<int>* winner = new std::vector<int>();
+    winner->push_back(children.size());
+    winner->push_back(currDepth);
+    winner->push_back(node);
+    for(Tree* child:children)
+    {
+        MaxRankTree* maxRankChild=static_cast<MaxRankTree*>(child);
+        vector<int>* candidate= maxRankChild->maxRankWinRec(currDepth + 1);
+        if ((candidate->at(0)>winner->at(0))||
+        ((candidate->at(1)<winner->at(1))||(candidate->at(2)<winner->at(2))))
+        {
+            *winner=*candidate;
+        }
+        delete candidate;
+    }
+    return winner;
 }
 
 Tree* MaxRankTree::clone() const {

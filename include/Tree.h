@@ -47,7 +47,6 @@ public:
     const CycleTree& operator=(const CycleTree& other); // Ass oprt
     CycleTree& operator=(CycleTree&& other); // move Ass oprt
     int getCycle()const ;
-
     int traceTreeRecursive(int cycleCounter);
 
 private:
@@ -65,6 +64,8 @@ public:
     virtual ~ MaxRankTree() = default; // destructor
     const MaxRankTree& operator=(const MaxRankTree& other) ; // Ass oprt
     MaxRankTree& operator=(MaxRankTree&& other); // move Ass oprt
+    std::vector<int>* maxRankWinRec(int depth);
+
 };
 
 class RootTree: public Tree{
