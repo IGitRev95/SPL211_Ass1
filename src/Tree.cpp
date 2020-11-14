@@ -58,7 +58,7 @@ void Tree::clear() {
     children.clear();
 }
 
-const Tree & Tree::operator=(const Tree &other) {//TODO: test tree ass oprt
+const Tree & Tree::operator=(const Tree &other) {
     if(this!=&other) {
         clear();
         node=other.node;

@@ -21,7 +21,7 @@ public:
 
     //----- Rule of Five/
     Tree(const Tree &other); // copy constructor
-    Tree(Tree&& other); // move constructor
+    Tree(Tree&& other); // move constructor TODO: deep testing
     virtual Tree *clone() const = 0;
     virtual ~ Tree(); // destructor
     void clear();
