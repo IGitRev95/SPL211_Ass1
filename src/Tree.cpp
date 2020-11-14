@@ -62,10 +62,7 @@ const Tree & Tree::operator=(const Tree &other) {//TODO: test tree ass oprt
     if(this!=&other) {
         clear();
         node=other.node;
-        for(Tree* tree:other.children)
-        {
-            children.push_back(tree->clone());
-        }
+        cloneChildren(other);
     }
     return *this;
 }
@@ -162,7 +159,7 @@ CycleTree & CycleTree::operator=(CycleTree &&other) {
         currCycle=other.currCycle;
         stealChildren(other);
     }
-
+    return *this;
 }
 
 int CycleTree::getCycle() const {return currCycle;}
@@ -181,6 +178,24 @@ int MaxRankTree::traceTree() {
 Tree* MaxRankTree::clone() const {
     return new MaxRankTree(*this);
 }
+
+const MaxRankTree & MaxRankTree::operator=(const MaxRankTree &other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        cloneChildren(other);
+    }
+    return *this;
+}
+
+MaxRankTree & MaxRankTree::operator=(MaxRankTree &&other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        stealChildren(other);
+    }
+    return *this;
+}
 ////RootTree methods implementation
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
 RootTree::RootTree(const RootTree &other):Tree(other) {}
@@ -188,5 +203,23 @@ int RootTree::traceTree() {return node;}
 
 Tree * RootTree::clone() const {
     return new RootTree(*this);
+}
+
+const RootTree & RootTree::operator=(const RootTree &other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        cloneChildren(other);
+    }
+    return *this;
+}
+
+RootTree & RootTree::operator=(RootTree &&other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        stealChildren(other);
+    }
+    return *this;
 }
 ////---------------------------------

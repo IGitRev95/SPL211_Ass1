@@ -25,14 +25,15 @@ public:
     virtual Tree *clone() const = 0;
     virtual ~ Tree(); // destructor
     void clear();
-    virtual const Tree& operator=(const Tree& other); // Ass oprt
-    virtual Tree& operator=(Tree&& other); // move Ass oprt
+    const Tree& operator=(const Tree& other); // Ass oprt
+    Tree& operator=(Tree&& other); // move Ass oprt
 protected:
     int node;
     std::vector<Tree*> children;
 
     void stealChildren(Tree& other);
     void cloneChildren(const Tree& other);
+    //const Tree& basicAssigment(const Tree& other);//-optional
 };
 
 class CycleTree: public Tree{
@@ -43,8 +44,8 @@ public:
     virtual int traceTree();
     virtual Tree *clone() const ;
     virtual ~ CycleTree() = default; // destructor
-    virtual const CycleTree& operator=(const CycleTree& other); // Ass oprt
-    virtual CycleTree& operator=(CycleTree&& other); // move Ass oprt
+    const CycleTree& operator=(const CycleTree& other); // Ass oprt
+    CycleTree& operator=(CycleTree&& other); // move Ass oprt
     int getCycle()const ;
 
 
@@ -60,8 +61,8 @@ public:
     virtual int traceTree();
     virtual Tree *clone() const ;
     virtual ~ MaxRankTree() = default; // destructor
-    virtual const MaxRankTree& operator=(const MaxRankTree& other) = default; // Ass oprt
-    virtual MaxRankTree& operator=(MaxRankTree&& other)=default; // move Ass oprt
+    const MaxRankTree& operator=(const MaxRankTree& other) ; // Ass oprt
+    MaxRankTree& operator=(MaxRankTree&& other); // move Ass oprt
 };
 
 class RootTree: public Tree{
@@ -72,8 +73,8 @@ public:
     virtual int traceTree();
     virtual Tree *clone() const ;
     virtual ~ RootTree() = default; // destructor
-    virtual const RootTree& operator=(const RootTree& other) = default;// Ass oprt
-    virtual RootTree& operator=(RootTree&& other)=default; // move Ass oprt
+    const RootTree& operator=(const RootTree& other);// Ass oprt
+    RootTree& operator=(RootTree&& other); // move Ass oprt
 };
 
 #endif
