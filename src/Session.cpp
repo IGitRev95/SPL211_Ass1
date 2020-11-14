@@ -15,12 +15,12 @@ void Session::simulate() {
     int CurrentSize;
     if (!terminate)
         do {
-            _cycleCurrNum = _cycleCurrNum + 1;
             CurrentSize = agents.size();
             for (int j = 0; j < CurrentSize; j = j + 1) {
                 agents.at(j)->act(*this);
             }
             terminate = g.SessionDone();
+            _cycleCurrNum = _cycleCurrNum + 1;
         } while (!terminate);
     json output;
     output["graph"]=this->g.GetEdges();
