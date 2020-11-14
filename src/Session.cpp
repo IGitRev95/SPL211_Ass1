@@ -71,14 +71,11 @@ TreeType Session::getTreeType() const {
     return treeType;
 }
 //--------------------------------------------------
-        void Session::addAgent(const Agent &agent) {
-    agents.push_back(agent.clone());}
- //--------------------------------------------------
-//    bool Session::isInfectedQueueEmptey() {
-//        return infecteds.empty();
-//}
- //--------------------------------------------------
- int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
+void Session::addAgent(const Agent &agent) {
+    agents.push_back(agent.clone());
+}
+//--------------------------------------------------
+int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
 //---------------------------------------------------
  Graph & Session::getGraphReference() {
     return g;
@@ -87,7 +84,7 @@ TreeType Session::getTreeType() const {
 void Session::setGraph(const Graph &graph) {
     g = graph;
 }
- //---------------------------------
+//---------------------------------
 
 //---- Rule of 5
 //destructor
@@ -153,7 +150,7 @@ void Session:: clean(){
 }
 
 
-    void Session:: copy(const Session& other) {
+void Session:: copy(const Session& other) {
         g = other.g;
         numofinfecteds=other.numofinfecteds;
         treeType = other.treeType;

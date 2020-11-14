@@ -18,6 +18,22 @@ void Tree::addChild(const Tree &child) {
 }
 
 Tree::Tree(const Tree &other): Tree(other.node){
+    cloneChildren(other);
+}
+// move constructor
+Tree::Tree(Tree &&other):Tree(other.node) { //TODO: test Tree move con
+    stealChildren(other);
+}
+
+void Tree::stealChildren(Tree &other) {
+    for(Tree* othertree: other.children)
+    {
+        children.push_back(othertree);
+        othertree = nullptr;
+    }
+}
+
+void Tree::cloneChildren(const Tree &other) {
     for(Tree* tree : other.children)
     {
         children.push_back(tree->clone());
@@ -50,6 +66,15 @@ const Tree & Tree::operator=(const Tree &other) {//TODO: test tree ass oprt
         {
             children.push_back(tree->clone());
         }
+    }
+    return *this;
+}
+
+Tree & Tree::operator=(Tree &&other) {//TODO: Test Tree move Ass oprt
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        stealChildren(other);
     }
     return *this;
 }
@@ -106,6 +131,10 @@ CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(cur
 
 CycleTree::CycleTree(const CycleTree &other): Tree(other), currCycle(other.currCycle) {}
 
+CycleTree::CycleTree(CycleTree &&other):CycleTree(other.node,other.currCycle){
+    stealChildren(other);
+}
+
 int CycleTree::traceTree() {
     return 0;
 }
@@ -120,12 +149,20 @@ const CycleTree & CycleTree::operator=(const CycleTree &other) {
         clear();
         node=other.node;
         currCycle=other.currCycle;
-        for(Tree* tree:other.children)
-        {
-            children.push_back(tree->clone());
-        }
+        cloneChildren(other);
     }
     return *this;
+}
+
+CycleTree & CycleTree::operator=(CycleTree &&other) {
+    if(this!=&other)
+    {
+        clear();
+        node=other.node;
+        currCycle=other.currCycle;
+        stealChildren(other);
+    }
+
 }
 
 int CycleTree::getCycle() const {return currCycle;}
