@@ -36,11 +36,12 @@ void Tree::stealChildren(Tree &other) {
 void Tree::cloneChildren(const Tree &other) {
     for(Tree* tree : other.children)
     {
-        children.push_back(tree->clone());
+        addChild(*tree);
+        // children.push_back(tree->clone());
     }
 }
 
-void Tree::addChild( Tree &child) {
+void Tree::addRealChild(Tree &child) {
     this->children.push_back(&child);
 }
 
@@ -90,7 +91,7 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
      for (int i = 0; i < nodes_control.size(); i=i+1)
      {
          if(-1!=bfsData->at(i).at(2))
-             nodes_control.at(bfsData->at(i).at(2))->addChild(*nodes_control.at(i));
+             nodes_control.at(bfsData->at(i).at(2))->addRealChild(*nodes_control.at(i));
      }
      Tree* ans(nodes_control.at(rootLabel)->clone());
 
