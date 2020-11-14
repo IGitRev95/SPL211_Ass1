@@ -48,8 +48,10 @@ public:
     CycleTree& operator=(CycleTree&& other); // move Ass oprt
     int getCycle()const ;
 
+    int traceTreeRecursive(int cycleCounter);
 
 private:
+
     int currCycle;
 };
 

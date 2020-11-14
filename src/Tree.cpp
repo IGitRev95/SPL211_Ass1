@@ -133,7 +133,16 @@ CycleTree::CycleTree(CycleTree &&other):CycleTree(other.node,other.currCycle){
 }
 
 int CycleTree::traceTree() {
-    return 0;
+    return traceTreeRecursive(currCycle);
+}
+
+int CycleTree::traceTreeRecursive(int cycleCounter){
+    if(cycleCounter==0 || children.empty())
+        return node;
+    else{
+        CycleTree* child= static_cast<CycleTree *>(children.front());
+        return child->traceTreeRecursive(cycleCounter-1);
+    }
 }
 
 Tree* CycleTree::clone() const {
