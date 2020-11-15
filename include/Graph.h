@@ -16,7 +16,7 @@ public:
 
     Graph();
 
-  //  Graph(const std::vector<std::vector<int>>& matrix);
+    Graph(std::vector<std::vector<int>> matrix);
   const std::vector<std::vector<int>>& GetEdges() const;
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
@@ -29,7 +29,9 @@ public:
     void clean();
     const std::vector<int>& getEdgesOf(int v) const;
 
-    std::vector<std::vector<int>> BFSScan(int rootNode) const;
+//    std::vector<std::vector<int>> BFSScan(int rootNode) const;
+    Graph* BFSScan(int rootNode) const;
+    Graph* BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const;
 
     bool SessionDone(); // checking if the Session done
     bool Connected(int v1,int v2) const;
