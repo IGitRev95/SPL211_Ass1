@@ -90,8 +90,9 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
 
      for (int i = 0; i < nodes_control.size(); i=i+1)
      {
-         if(-1!=bfsData.at(i).at(2))
-             nodes_control.at(bfsData.at(i).at(2))->addRealChild(*nodes_control.at(i));
+         int parent(bfsData.at(i).at(2));
+         if(-1!=parent)
+             nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
      }
      Tree* ans(nodes_control.at(rootLabel)->clone());
 
