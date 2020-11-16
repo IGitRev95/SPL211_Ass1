@@ -105,36 +105,41 @@ bool Graph::SessionDone() {
 //    /*
 //     * table of [0]color,[1]distance,[2]parent
 //     */
-//    for(vector<int> &vec: bfsData)
-//    {
-//        vec.push_back(0);
-//        vec.push_back(0);
-//        vec.push_back(-1);
-//    }
 //    int color(0);
 //    int distance(1);
 //    int parent(2);
-//    bfsData.at(rootNode).at(color)=1;
+//    int colorWhite(0);
+//    int colorGray(1);
+//    int colorBlack(2);
+//    int noParent(-1);
+//    for(vector<int> &vec: bfsData)//init of verticed data
+//    {
+//        vec.push_back(colorWhite);
+//        vec.push_back(0);
+//        vec.push_back(noParent);
+//    }
+//
+//    bfsData.at(rootNode).at(color)=colorGray;
 //    queue<int> bfsQ;
 //    bfsQ.push(rootNode);
-//    while (!bfsQ.empty()) //BFS run
+//    while (!bfsQ.empty()) //BFS run - implemented as an interpretation to algorithm from DS course
 //    {
-//        int u = bfsQ.front();
+//        int currVerix = bfsQ.front();
 //        bfsQ.pop();
-//        int v=0;
-//        for(int v1 : getEdgesOf(u))
+//        int vertixCandidateNeghiber=0;
+//        for(int edgeIndicator : getEdgesOf(currVerix))
 //        {
-//            if(v1==1) {
-//                if (bfsData.at(v).at(0) == 0) {
-//                    bfsData.at(v).at(0) = 1;
-//                    bfsData.at(v).at(1) = bfsData.at(u).at(1) + 1;
-//                    bfsData.at(v).at(2) = u;
-//                    bfsQ.push(v);
+//            if(edgeIndicator == 1) {
+//                if (bfsData.at(vertixCandidateNeghiber).at(color) == colorWhite) {
+//                    bfsData.at(vertixCandidateNeghiber).at(color) = colorGray;
+//                    bfsData.at(vertixCandidateNeghiber).at(distance) = bfsData.at(currVerix).at(distance) + 1;
+//                    bfsData.at(vertixCandidateNeghiber).at(parent) = currVerix;
+//                    bfsQ.push(vertixCandidateNeghiber);
 //                }
 //            }
-//            v=v+1;
+//            vertixCandidateNeghiber= vertixCandidateNeghiber + 1;
 //        }
-//        bfsData.at(u).at(0)=3;
+//        bfsData.at(currVerix).at(color)=colorBlack;
 //    }
 //    return bfsData;
 //}

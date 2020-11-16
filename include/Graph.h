@@ -17,7 +17,7 @@ public:
     Graph();
 
     Graph(std::vector<std::vector<int>> matrix);
-  const std::vector<std::vector<int>>& GetEdges() const;
+    const std::vector<std::vector<int>>& GetEdges() const;
     void infectNode(int nodeInd);
     void CarryNode(int nodeInd);
     int NodeStatus(int nodeInd);
