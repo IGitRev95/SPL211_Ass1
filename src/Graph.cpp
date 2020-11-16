@@ -152,11 +152,12 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
     int colorWhite(0);
     int colorGray(1);
     int colorBlack(2);
+    int noParent(-1);
     for(vector<int> &vec: bfsData)//init of verticed data
     {
         vec.push_back(colorWhite);
         vec.push_back(0);
-        vec.push_back(-1);
+        vec.push_back(noParent);
     }
 
     bfsData.at(rootNode).at(color)=colorGray;
@@ -164,22 +165,22 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
     bfsQ.push(rootNode);
     while (!bfsQ.empty()) //BFS run - implemented as an interpretation to algorithm from DS course
     {
-        int u = bfsQ.front();
+        int currVerix = bfsQ.front();
         bfsQ.pop();
-        int v=0;
-        for(int v1 : getEdgesOf(u))
+        int vertixCandidateNeghiber=0;
+        for(int edgeIndicator : getEdgesOf(currVerix))
         {
-            if(v1==1) {
-                if (bfsData.at(v).at(color) == colorWhite) {
-                    bfsData.at(v).at(color) = colorGray;
-                    bfsData.at(v).at(distance) = bfsData.at(u).at(distance) + 1;
-                    bfsData.at(v).at(parent) = u;
-                    bfsQ.push(v);
+            if(edgeIndicator == 1) {
+                if (bfsData.at(vertixCandidateNeghiber).at(color) == colorWhite) {
+                    bfsData.at(vertixCandidateNeghiber).at(color) = colorGray;
+                    bfsData.at(vertixCandidateNeghiber).at(distance) = bfsData.at(currVerix).at(distance) + 1;
+                    bfsData.at(vertixCandidateNeghiber).at(parent) = currVerix;
+                    bfsQ.push(vertixCandidateNeghiber);
                 }
             }
-            v=v+1;
+            vertixCandidateNeghiber= vertixCandidateNeghiber + 1;
         }
-        bfsData.at(u).at(color)=colorBlack;
+        bfsData.at(currVerix).at(color)=colorBlack;
     }
     return BFSDataToGraph(bfsData);
 }//TODO: Test & need to delet graph outside
@@ -191,7 +192,8 @@ Graph* Graph::BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const {
     for (int i = 0; i < numofVertix; i=i+1)
     {
         int parent(BFSdata.at(i).at(2));
-        if(-1!=parent) {
+        bool haveParent(-1!=parent);
+        if(haveParent) {
             bfsMatrix.at(parent).at(i)=1;//each node pulls an edge from its' parent to itself
         }
     }
