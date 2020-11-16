@@ -142,7 +142,7 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
 //        if(-1==bfsData.at(i).at(2))
 //            delete nodes_control.at(i);
 //    }
-    Tree* ans();
+
     delete bfsgraph;
     return output;
 }
