@@ -13,5 +13,4 @@ add_executable(Ass1_new
         src/Agent.cpp
         src/Graph.cpp
         src/Session.cpp
-        src/Tree.cpp
-        )
+        src/Tree.cpp)
