@@ -1,4 +1,4 @@
-# Install script for directory: /home/spl211/SPL-Ass/Ass1-new
+# Install script for directory: /home/nave/CLionProjects/SPL211_Ass1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

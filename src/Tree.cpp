@@ -16,7 +16,8 @@ Tree::Tree(int rootLabel):node(rootLabel),children(){}
 void Tree::addChild(const Tree &child) {
     this->children.push_back(child.clone());
 }
-
+const vector<Tree*> Tree:: getChildren(){return this->children;}
+const int Tree:: getRootLabel(){return this->node;}
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
@@ -29,8 +30,8 @@ void Tree::stealChildren(Tree &other) {
     for(Tree* othertree: other.children)
     {
         children.push_back(othertree);
-        othertree = nullptr;
     }
+    other.children.clear();
 }
 
 void Tree::cloneChildren(const Tree &other) {
@@ -104,12 +105,24 @@ Tree & Tree::operator=(Tree &&other) {//TODO: Test Tree move Ass oprt
 //
 //    return ans;
 //}
-
+void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
+    vector<int> EdgesOfNode= bfsgraph.getEdgesOf(this->node);
+    Tree* child;
+    for (int i=0;i<EdgesOfNode.size();i++) {
+        if (i != node && EdgesOfNode[i] == 1) {
+        child = createNodeTree(session, i);
+        (*child).RecursiveCreate(session,bfsgraph);
+        addChild(*child);
+        delete child;
+    }
+    }
+}
 Tree* Tree::createTree(const Session &session, int rootLabel){
     //CAllBFS
-
+    Tree* output= createNodeTree(session,rootLabel);
     //MEMORY LEAK OPTION
     Graph* bfsgraph(session.getG().BFSScan(rootLabel));
+    (*output).RecursiveCreate(session,*bfsgraph);
 //    vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
 //    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
 //    {
@@ -131,7 +144,7 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
 //    }
     Tree* ans();
     delete bfsgraph;
-    return nullptr;
+    return output;
 }
 
 Tree * Tree::createNodeTree(const Session &session, int rootLabel) {

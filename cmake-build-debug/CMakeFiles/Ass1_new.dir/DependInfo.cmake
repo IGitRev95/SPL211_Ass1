@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/spl211/SPL-Ass/Ass1-new/src/Agent.cpp" "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Agent.cpp.o"
-  "/home/spl211/SPL-Ass/Ass1-new/src/Graph.cpp" "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Graph.cpp.o"
-  "/home/spl211/SPL-Ass/Ass1-new/src/Session.cpp" "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Session.cpp.o"
-  "/home/spl211/SPL-Ass/Ass1-new/src/Tree.cpp" "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Tree.cpp.o"
-  "/home/spl211/SPL-Ass/Ass1-new/src/main.cpp" "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/main.cpp.o"
+  "/home/nave/CLionProjects/SPL211_Ass1/src/Agent.cpp" "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Agent.cpp.o"
+  "/home/nave/CLionProjects/SPL211_Ass1/src/Graph.cpp" "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Graph.cpp.o"
+  "/home/nave/CLionProjects/SPL211_Ass1/src/Session.cpp" "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Session.cpp.o"
+  "/home/nave/CLionProjects/SPL211_Ass1/src/Tree.cpp" "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/Tree.cpp.o"
+  "/home/nave/CLionProjects/SPL211_Ass1/src/main.cpp" "/home/nave/CLionProjects/SPL211_Ass1/cmake-build-debug/CMakeFiles/Ass1_new.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

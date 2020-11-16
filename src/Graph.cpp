@@ -188,7 +188,7 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
         bfsData.at(currVerix).at(color)=colorBlack;
     }
     return BFSDataToGraph(bfsData);
-}//TODO: Test & need to delet graph outside
+}
 
 Graph* Graph::BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const {
     int numofVertix(BFSdata.size());

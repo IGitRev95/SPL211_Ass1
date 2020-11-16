@@ -3,7 +3,8 @@
 
 #include <vector>
 #include "Session.h"
-
+using namespace std;
+class Graph;
 class Session;
 
 class Tree{
@@ -14,9 +15,11 @@ public:
 
     void addChild(const Tree& child);
     void addRealChild(Tree& child);
-
+    const vector<Tree*> getChildren();
+    const int getRootLabel();
     static Tree* createTree(const Session& session, int rootLabel);
     static Tree* createNodeTree(const Session& session, int rootLabel);
+
     virtual int traceTree()=0;
 
     //----- Rule of Five/
@@ -30,7 +33,7 @@ public:
 protected:
     int node;
     std::vector<Tree*> children;
-
+    void RecursiveCreate(const Session& session,const Graph& bfsgraph);
     void stealChildren(Tree& other);
     void cloneChildren(const Tree& other);
     //const Tree& basicAssigment(const Tree& other);//-optional

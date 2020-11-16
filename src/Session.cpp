@@ -129,8 +129,8 @@ Session& Session::operator=(Session&& other) noexcept {
         numofinfecteds=other.numofinfecteds;
         for (int i=0; i<agents.size(); i++) {
             *agents.at(i) = *other.agents.at(i);
-            other.agents.at(i)= nullptr;
         }
+        other.agents.clear();
         g=(move(other.g));
         treeType=other.treeType;
         infecteds=(move(infecteds));

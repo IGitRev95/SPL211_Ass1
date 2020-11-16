@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/spl211/SPL-Ass/Ass1-new/. 
+CXX_INCLUDES = -I/home/nave/CLionProjects/SPL211_Ass1/. 
 
