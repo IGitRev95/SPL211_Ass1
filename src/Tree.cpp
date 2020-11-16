@@ -77,32 +77,61 @@ Tree & Tree::operator=(Tree &&other) {//TODO: Test Tree move Ass oprt
     return *this;
 }
 
+//Tree* Tree::createTree(const Session &session, int rootLabel){ //old createTree
+//     //CAllBFS
+//
+//     //MEMORY LEAK OPTION
+//     vector<vector<int>> bfsData(session.getG().BFSScan(rootLabel));
+//     vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
+//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//     {
+//        nodes_control.at(i) = Tree::createNodeTree(session, i);
+//     }
+//
+//     for (int i = 0; i < nodes_control.size(); i=i+1)
+//     {
+//         int parent(bfsData.at(i).at(2));
+//         if(-1!=parent)
+//             nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
+//     }
+//     Tree* ans(nodes_control.at(rootLabel)->clone());
+//
+//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//     {
+//         if(-1==bfsData.at(i).at(2))
+//          delete nodes_control.at(i);
+//     }
+//
+//    return ans;
+//}
+
 Tree* Tree::createTree(const Session &session, int rootLabel){
-     //CAllBFS
+    //CAllBFS
 
-     //MEMORY LEAK OPTION
-     vector<vector<int>> bfsData(session.getG().BFSScan(rootLabel));
-     vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
-     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-     {
-        nodes_control.at(i) = Tree::createNodeTree(session, i);
-     }
-
-     for (int i = 0; i < nodes_control.size(); i=i+1)
-     {
-         int parent(bfsData.at(i).at(2));
-         if(-1!=parent)
-             nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
-     }
-     Tree* ans(nodes_control.at(rootLabel)->clone());
-
-     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-     {
-         if(-1==bfsData.at(i).at(2))
-          delete nodes_control.at(i);
-     }
-
-    return ans;
+    //MEMORY LEAK OPTION
+    Graph* bfsgraph(session.getG().BFSScan(rootLabel));
+//    vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
+//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//    {
+//        nodes_control.at(i) = Tree::createNodeTree(session, i);
+//    }
+//
+//    for (int i = 0; i < nodes_control.size(); i=i+1)
+//    {
+//        int parent(bfsData.at(i).at(2));
+//        if(-1!=parent)
+//            nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
+//    }
+//    Tree* ans(nodes_control.at(rootLabel)->clone());
+//
+//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
+//    {
+//        if(-1==bfsData.at(i).at(2))
+//            delete nodes_control.at(i);
+//    }
+    Tree* ans();
+    delete bfsgraph;
+    return nullptr;
 }
 
 Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
