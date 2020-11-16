@@ -111,7 +111,10 @@ bool Graph::SessionDone() {
 //        vec.push_back(0);
 //        vec.push_back(-1);
 //    }
-//    bfsData.at(rootNode).at(0)=1;
+//    int color(0);
+//    int distance(1);
+//    int parent(2);
+//    bfsData.at(rootNode).at(color)=1;
 //    queue<int> bfsQ;
 //    bfsQ.push(rootNode);
 //    while (!bfsQ.empty()) //BFS run
@@ -142,13 +145,21 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
     /*
      * table of [0]color,[1]distance,[2]parent
      */
+    //simple definitions
+    int color(0);
+    int distance(1);
+    int parent(2);
+    int colorWhite(0);
+    int colorGray(1);
+    int colorBlack(2);
     for(vector<int> &vec: bfsData)//init of verticed data
     {
-        vec.push_back(0);
+        vec.push_back(colorWhite);
         vec.push_back(0);
         vec.push_back(-1);
     }
-    bfsData.at(rootNode).at(0)=1;
+
+    bfsData.at(rootNode).at(color)=colorGray;
     queue<int> bfsQ;
     bfsQ.push(rootNode);
     while (!bfsQ.empty()) //BFS run - implemented as an interpretation to algorithm from DS course
@@ -159,16 +170,16 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
         for(int v1 : getEdgesOf(u))
         {
             if(v1==1) {
-                if (bfsData.at(v).at(0) == 0) {
-                    bfsData.at(v).at(0) = 1;
-                    bfsData.at(v).at(1) = bfsData.at(u).at(1) + 1;
-                    bfsData.at(v).at(2) = u;
+                if (bfsData.at(v).at(color) == colorWhite) {
+                    bfsData.at(v).at(color) = colorGray;
+                    bfsData.at(v).at(distance) = bfsData.at(u).at(distance) + 1;
+                    bfsData.at(v).at(parent) = u;
                     bfsQ.push(v);
                 }
             }
             v=v+1;
         }
-        bfsData.at(u).at(0)=3;
+        bfsData.at(u).at(color)=colorBlack;
     }
     return BFSDataToGraph(bfsData);
 }//TODO: Test & need to delet graph outside
