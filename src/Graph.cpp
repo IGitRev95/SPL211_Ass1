@@ -10,7 +10,9 @@
  * at IsinfectedArray 0- means not infected, 1- means Carry 2- means infected
  */
 using namespace std;
+
 Graph::Graph(std::vector<std::vector<int>> matrix):edges(matrix) {};
+
 const vector<vector<int>>& Graph::GetEdges() const {
 return edges;
 }
@@ -23,19 +25,24 @@ void Graph::updateMatrix(const std::vector<std::vector<int>>& matrix, const std:
         IsInfectedArray.at(CarryNodes.at(i))=1;
     }
 }
+
 int Graph::NodeStatus(int nodeInd) {
     //0- nof infected, 1- carry, 2- infected
     return IsInfectedArray.at((nodeInd));
 }
+
 bool Graph::isInfected(int nodeInd) {
     return NodeStatus(nodeInd)==2;
 }
+
 void Graph::infectNode(int nodeInd) {
     if (!isInfected(nodeInd)) IsInfectedArray.at(nodeInd)=2;
 }
+
 void Graph::CarryNode(int nodeInd) {
     if (!isInfected(nodeInd)) IsInfectedArray.at(nodeInd)=1;
 }
+
 const vector<int>& Graph::getEdgesOf(int v) const {
     return edges.at(v);
 }
@@ -47,13 +54,13 @@ Graph::Graph(const Graph& other):edges(other.edges),IsInfectedArray(other.IsInfe
 
 //Disconnect
 void Graph::disconnect(int node) {
-
-    for(int i=0;i<edges.size();i=i+1)
+    const int numOfVertices=edges.size();
+    for(int i=0;i<numOfVertices;i=i+1)
     {
         edges.at(node).at(i)=0;
     }
 
-    for(int i=0;i<edges.size();i=i+1)
+    for(int i=0;i<numOfVertices;i=i+1)
     {
         edges.at(i).at(node)=0;
     }
@@ -99,51 +106,6 @@ bool Graph::SessionDone() {
     return terminate;
 }
 
-//vector<vector<int>> Graph::BFSScan(int rootNode) const {
-//    int numOfVert = getNumOfVertices();
-//    std::vector<std::vector<int>> bfsData(numOfVert);
-//    /*
-//     * table of [0]color,[1]distance,[2]parent
-//     */
-//    int color(0);
-//    int distance(1);
-//    int parent(2);
-//    int colorWhite(0);
-//    int colorGray(1);
-//    int colorBlack(2);
-//    int noParent(-1);
-//    for(vector<int> &vec: bfsData)//init of verticed data
-//    {
-//        vec.push_back(colorWhite);
-//        vec.push_back(0);
-//        vec.push_back(noParent);
-//    }
-//
-//    bfsData.at(rootNode).at(color)=colorGray;
-//    queue<int> bfsQ;
-//    bfsQ.push(rootNode);
-//    while (!bfsQ.empty()) //BFS run - implemented as an interpretation to algorithm from DS course
-//    {
-//        int currVerix = bfsQ.front();
-//        bfsQ.pop();
-//        int vertixCandidateNeghiber=0;
-//        for(int edgeIndicator : getEdgesOf(currVerix))
-//        {
-//            if(edgeIndicator == 1) {
-//                if (bfsData.at(vertixCandidateNeghiber).at(color) == colorWhite) {
-//                    bfsData.at(vertixCandidateNeghiber).at(color) = colorGray;
-//                    bfsData.at(vertixCandidateNeghiber).at(distance) = bfsData.at(currVerix).at(distance) + 1;
-//                    bfsData.at(vertixCandidateNeghiber).at(parent) = currVerix;
-//                    bfsQ.push(vertixCandidateNeghiber);
-//                }
-//            }
-//            vertixCandidateNeghiber= vertixCandidateNeghiber + 1;
-//        }
-//        bfsData.at(currVerix).at(color)=colorBlack;
-//    }
-//    return bfsData;
-//}
-
 Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as graph, each node[i] know its children
     int numOfVert = getNumOfVertices();
     std::vector<std::vector<int>> bfsData(numOfVert);
@@ -151,13 +113,13 @@ Graph* Graph::BFSScan(int rootNode) const {//BFS version returns bfs tree as gra
      * table of [0]color,[1]distance,[2]parent
      */
     //simple definitions
-    int color(0);
-    int distance(1);
-    int parent(2);
-    int colorWhite(0);
-    int colorGray(1);
-    int colorBlack(2);
-    int noParent(-1);
+    const int color(0);
+    const int distance(1);
+    const int parent(2);
+    const int colorWhite(0);
+    const int colorGray(1);
+    const int colorBlack(2);
+    const int noParent(-1);
     for(vector<int> &vec: bfsData)//init of verticed data
     {
         vec.push_back(colorWhite);
@@ -203,7 +165,7 @@ Graph* Graph::BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const {
         }
     }
     return new Graph(bfsMatrix);//directed graph edge from row to col
-} //TODO:Test
+}
 
 void Graph:: clean(){
     edges.clear();

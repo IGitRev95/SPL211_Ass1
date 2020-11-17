@@ -23,11 +23,14 @@ void ContactTracer::act(Session &session) {
         delete curr_infected_tree;
     }
 }
+
 Agent *ContactTracer:: clone() const {
     return new ContactTracer();
 }
+
 //Virus
 Virus:: Virus(int nodeInd):nodeInd(nodeInd) {}
+
 void Virus::act(Session &session) {
     int v= this->nodeInd;
     Graph& current= session.getGraphReference();
@@ -46,6 +49,7 @@ void Virus::act(Session &session) {
         }
     }
 }
+
 Agent* Virus::clone() const {
     return new Virus(this->getNumber());
 }

@@ -55,6 +55,7 @@ Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycl
     if (tree == "C") treeType=Cycle;
     if (tree == "R") treeType=Root;
     }
+
 int Session::dequeueInfected() {
     if (!infecteds.empty()) {
         int number = infecteds.front();
@@ -63,27 +64,38 @@ int Session::dequeueInfected() {
     }
     return -1;
 }
+
 void Session::enqueueInfected(int number) {
     numofinfecteds.push_back(number);
     infecteds.push(number);
 }
+
 TreeType Session::getTreeType() const {
     return treeType;
 }
+
 //--------------------------------------------------
+
 void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());
 }
+
 //--------------------------------------------------
+
 int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
+
 //---------------------------------------------------
- Graph & Session::getGraphReference() {
+
+Graph & Session::getGraphReference() {
     return g;
 }
+
 //--------------------------------------------------
+
 void Session::setGraph(const Graph &graph) {
     g = graph;
 }
+
 //---------------------------------
 
 //---- Rule of 5
@@ -95,6 +107,7 @@ Session::~Session(){
     g.clean();
     numofinfecteds.clear();
 }
+
 //copy constructor
 Session::Session(const Session& other): g(other.g),
 treeType(other.treeType),
@@ -105,6 +118,7 @@ numofinfecteds(other.numofinfecteds)
 {
     for (Agent* agent: other.agents) this->addAgent(*agent);
 }
+
 //copy assigment operator
 Session & Session:: operator=(const Session& other) {
     if (this != &other) {
@@ -113,6 +127,7 @@ Session & Session:: operator=(const Session& other) {
 }
     return (*this);
 }
+
 // move constructor
 Session::Session(Session &&other) noexcept: g(move(other.g)),
 infecteds(move(other.infecteds)),
@@ -121,6 +136,7 @@ agents(move(other.agents)),
 treeType(other.treeType),
 numofinfecteds(move(other.numofinfecteds))
 {other.agents.clear();}
+
 // move assigment operator
 Session& Session::operator=(Session&& other) noexcept {
     if (this!= &other){
@@ -148,7 +164,6 @@ void Session:: clean(){
     };
     g.clean();
 }
-
 
 void Session:: copy(const Session& other) {
         g = other.g;

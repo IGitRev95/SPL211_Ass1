@@ -16,8 +16,11 @@ Tree::Tree(int rootLabel):node(rootLabel),children(){}
 void Tree::addChild(const Tree &child) {
     this->children.push_back(child.clone());
 }
+
 const vector<Tree*> Tree:: getChildren(){return this->children;}
+
 const int Tree:: getRootLabel(){return this->node;}
+
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
@@ -78,33 +81,6 @@ Tree & Tree::operator=(Tree &&other) {//TODO: Test Tree move Ass oprt
     return *this;
 }
 
-//Tree* Tree::createTree(const Session &session, int rootLabel){ //old createTree
-//     //CAllBFS
-//
-//     //MEMORY LEAK OPTION
-//     vector<vector<int>> bfsData(session.getG().BFSScan(rootLabel));
-//     vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
-//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-//     {
-//        nodes_control.at(i) = Tree::createNodeTree(session, i);
-//     }
-//
-//     for (int i = 0; i < nodes_control.size(); i=i+1)
-//     {
-//         int parent(bfsData.at(i).at(2));
-//         if(-1!=parent)
-//             nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
-//     }
-//     Tree* ans(nodes_control.at(rootLabel)->clone());
-//
-//     for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-//     {
-//         if(-1==bfsData.at(i).at(2))
-//          delete nodes_control.at(i);
-//     }
-//
-//    return ans;
-//}
 void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
     vector<int> EdgesOfNode= bfsgraph.getEdgesOf(this->node);
     Tree* child;
@@ -117,32 +93,13 @@ void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
     }
     }
 }
+
 Tree* Tree::createTree(const Session &session, int rootLabel){
     //CAllBFS
     Tree* output= createNodeTree(session,rootLabel);
     //MEMORY LEAK OPTION
     Graph* bfsgraph(session.getG().BFSScan(rootLabel));
     (*output).RecursiveCreate(session,*bfsgraph);
-//    vector<Tree*> nodes_control(session.getG().getNumOfVertices());//gonna get from BFSScan
-//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-//    {
-//        nodes_control.at(i) = Tree::createNodeTree(session, i);
-//    }
-//
-//    for (int i = 0; i < nodes_control.size(); i=i+1)
-//    {
-//        int parent(bfsData.at(i).at(2));
-//        if(-1!=parent)
-//            nodes_control.at(parent)->addRealChild(*nodes_control.at(i));
-//    }
-//    Tree* ans(nodes_control.at(rootLabel)->clone());
-//
-//    for(int i=0;i<nodes_control.size();i=i+1)//nodes initiation
-//    {
-//        if(-1==bfsData.at(i).at(2))
-//            delete nodes_control.at(i);
-//    }
-
     delete bfsgraph;
     return output;
 }
@@ -225,7 +182,8 @@ MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other){}
 
 int MaxRankTree::traceTree() {
     vector<int>* maxRankNodeDetails= maxRankWinRec(0);
-    int ans=maxRankNodeDetails->at(2);
+    const int nodeIndex(2);
+    int ans=maxRankNodeDetails->at(nodeIndex);
     delete maxRankNodeDetails;
     return ans;
 }
@@ -241,18 +199,21 @@ std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
     winner->push_back(children.size());
     winner->push_back(currDepth);
     winner->push_back(node);
+    int nodeRank(0);
+    int nodeDepth(1);
+    int nodeIndex(2);
     for(Tree* child:children){
 
         MaxRankTree* maxRankChild=static_cast<MaxRankTree*>(child);
         vector<int>* candidate= maxRankChild->maxRankWinRec(currDepth + 1);
-        if (candidate->at(0) > winner->at(0)){
+        if (candidate->at(nodeRank) > winner->at(nodeRank)){
             *winner=*candidate;
         }
-        else if (candidate->at(0) == winner->at(0)){
-                if (candidate->at(1) < winner->at(1)){
+        else if (candidate->at(nodeRank) == winner->at(nodeRank)){
+                if (candidate->at(nodeDepth) < winner->at(nodeDepth)){
                     *winner=*candidate;
-                } else if (candidate->at(1) == winner->at(1)){
-                            if (candidate->at(2) < winner->at(2)){
+                } else if (candidate->at(nodeDepth) == winner->at(nodeDepth)){
+                            if (candidate->at(nodeIndex) < winner->at(nodeIndex)){
                                 *winner=*candidate;
                             }
                         }
@@ -283,9 +244,13 @@ MaxRankTree & MaxRankTree::operator=(MaxRankTree &&other) {
     }
     return *this;
 }
+
 ////RootTree methods implementation
+
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
+
 RootTree::RootTree(const RootTree &other):Tree(other) {}
+
 int RootTree::traceTree() {return node;}
 
 Tree * RootTree::clone() const {
