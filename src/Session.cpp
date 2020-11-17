@@ -143,7 +143,7 @@ Session& Session::operator=(Session&& other) noexcept {
         clean();
         _cycleCurrNum=other._cycleCurrNum;
         numofinfecteds=other.numofinfecteds;
-        for (int i=0; i<agents.size(); i++) {
+        for (unsigned int i=0; i<agents.size(); i++) {
             *agents.at(i) = *other.agents.at(i);
         }
         other.agents.clear();

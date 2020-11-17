@@ -21,7 +21,7 @@ void Graph::updateMatrix(const std::vector<std::vector<int>>& matrix, const std:
         edges.push_back(edge);
         IsInfectedArray.push_back(0);
     }
-    for (int i=0;i<CarryNodes.size();i=i+1){
+    for (unsigned int i=0;i<CarryNodes.size();i=i+1){
         IsInfectedArray.at(CarryNodes.at(i))=1;
     }
 }
