@@ -11,11 +11,8 @@ class Tree{
 public:
     Tree(int rootLabel); // constructor
 
-    //Tree(int node, const std::vector<Tree *> &children);
-
     // General Tree Methods
     void addChild(const Tree& child);
-    void addRealChild(Tree& child);////Maybe Delete?
     const vector<Tree*> getChildren() const;
     const int getRootLabel() const ;
     static Tree* createTree(const Session& session, int rootLabel);

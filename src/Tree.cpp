@@ -3,7 +3,6 @@
 //
 //#include <iostream>
 #include <queue>
-#include <iostream>
 #include "include/Tree.h"
 
 using namespace std;
@@ -12,30 +11,25 @@ using namespace std;
 
 Tree::Tree(int rootLabel):node(rootLabel),children(){}
 
-//Tree::Tree(int node, const vector<Tree *> &children) : node(node), children(children) {}
-
 void Tree::addChild(const Tree &child) {
     this->children.push_back(child.clone());
-}
-
-void Tree::addRealChild(Tree &child) {
-    this->children.push_back(&child);
 }
 
 const vector<Tree*> Tree:: getChildren() const {return this->children;}
 
 const int Tree:: getRootLabel() const {return this->node;}
 
+//returns pointer to a BFS Tree
 Tree* Tree::createTree(const Session &session, int rootLabel){
-    //CAllBFS
-    Tree* output= createNodeTree(session,rootLabel);
-    //MEMORY LEAK OPTION
+    Tree* output= createNodeTree(session,rootLabel); // create tree of rootlabel node
+    // calling BFS Scan of the graph and returns the BFS tree represented as graph
     Graph* bfsgraph(session.getG().BFSScan(rootLabel));
+    //make Bfs tree using Bfs tree as a graph and rootlabel
     (*output).RecursiveCreate(session,*bfsgraph);
     delete bfsgraph;
     return output;
 }
-
+// create tree of rootlable node
 Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
     switch (session.getTreeType()) {
         case Root:
@@ -51,10 +45,9 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
             return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
         }
     }
-    //cout<<"undefiend tree type, retured Tree* nullptr"<<endl;
     return nullptr;
 }
-
+//copy constructor
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
@@ -62,13 +55,13 @@ Tree::Tree(const Tree &other): Tree(other.node){
 Tree::Tree(Tree &&other):Tree(other.node) {
     stealChildren(other);
 }
-
+//destructor
 Tree::~Tree() {
     if(!children.empty())
         clear();
     //cout<<"Tree of node: "<<node<<" is clear"<<endl;
 }
-
+//delete children
 void Tree::clear() {
     for(Tree* childTree:children)
     {
@@ -76,7 +69,7 @@ void Tree::clear() {
     }
     children.clear();
 }
-
+// copy assigment operator
 const Tree & Tree::operator=(const Tree &other) {
     if(this!=&other) {
         clear();
@@ -85,7 +78,7 @@ const Tree & Tree::operator=(const Tree &other) {
     }
     return *this;
 }
-
+// move assigment operator
 Tree & Tree::operator=(Tree &&other) {
     if(this!=&other) {
         clear();
@@ -107,7 +100,7 @@ void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
         }
     }
 }
-
+//steal adress of children from other
 void Tree::stealChildren(Tree &other) {
     for(Tree* othertree: other.children)
     {
@@ -122,12 +115,13 @@ void Tree::cloneChildren(const Tree &other) {
         // children.push_back(tree->clone());
     }
 }
+
 ////CycleTree-------------
-
+//constructor
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
-
+//copy constructor
 CycleTree::CycleTree(const CycleTree &other): Tree(other), currCycle(other.currCycle) {}
-
+//move copy constructor
 CycleTree::CycleTree(CycleTree &&other):CycleTree(other.node,other.currCycle){
     stealChildren(other);
 }
@@ -218,6 +212,7 @@ std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
      * [0]:=Rank , [1]:=Depth, [2]:=node
     */
     vector<int>* winner = new std::vector<int>();
+    //current node values
     winner->push_back(children.size());
     winner->push_back(currDepth);
     winner->push_back(node);
@@ -225,16 +220,18 @@ std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
     int nodeDepth(1);
     int nodeIndex(2);
     for(Tree* child:children){
-
         MaxRankTree* maxRankChild=static_cast<MaxRankTree*>(child);
         vector<int>* candidate= maxRankChild->maxRankWinRec(currDepth + 1);
+        //check for most Rank
         if (candidate->at(nodeRank) > winner->at(nodeRank)){
             *winner=*candidate;
         }
         else if (candidate->at(nodeRank) == winner->at(nodeRank)){
+            //check smaller depth
             if (candidate->at(nodeDepth) < winner->at(nodeDepth)){
                 *winner=*candidate;
             } else if (candidate->at(nodeDepth) == winner->at(nodeDepth)){
+                //check for smaller index
                 if (candidate->at(nodeIndex) < winner->at(nodeIndex)){
                     *winner=*candidate;
                 }
