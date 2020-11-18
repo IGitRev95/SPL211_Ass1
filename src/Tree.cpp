@@ -3,6 +3,7 @@
 //
 //#include <iostream>
 #include <queue>
+#include <iostream>
 #include "include/Tree.h"
 
 using namespace std;
@@ -50,6 +51,8 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
             return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
         }
     }
+    cout<<"undefiend tree type, retured Tree* nullptr"<<endl;
+    return nullptr;
 }
 
 Tree::Tree(const Tree &other): Tree(other.node){
