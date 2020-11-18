@@ -22,9 +22,9 @@ void Tree::addRealChild(Tree &child) {
     this->children.push_back(&child);
 }
 
-const vector<Tree*> Tree:: getChildren(){return this->children;}
+const vector<Tree*> Tree:: getChildren() const {return this->children;}
 
-const int Tree:: getRootLabel(){return this->node;}
+const int Tree:: getRootLabel() const {return this->node;}
 
 Tree* Tree::createTree(const Session &session, int rootLabel){
     //CAllBFS
@@ -55,8 +55,6 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
     return nullptr;
 }
 
-const vector<Tree*> Tree:: getChildren() const {return this->children;}
-const int Tree:: getRootLabel() const {return this->node;}
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
