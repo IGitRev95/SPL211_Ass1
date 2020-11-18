@@ -110,11 +110,11 @@ Session::~Session(){
 
 //copy constructor
 Session::Session(const Session& other): g(other.g),
-treeType(other.treeType),
-agents(),
-infecteds(other.infecteds),
-_cycleCurrNum(other._cycleCurrNum),
-numofinfecteds(other.numofinfecteds)
+                                        treeType(other.treeType),
+                                        agents(),
+                                        infecteds(other.infecteds),
+                                        _cycleCurrNum(other._cycleCurrNum),
+                                        numofinfecteds(other.numofinfecteds)
 {
     for (Agent* agent: other.agents) this->addAgent(*agent);
 }
@@ -129,12 +129,12 @@ Session & Session:: operator=(const Session& other) {
 }
 
 // move constructor
-Session::Session(Session &&other) noexcept: g(move(other.g)),
-infecteds(move(other.infecteds)),
-_cycleCurrNum(other._cycleCurrNum),
-agents(move(other.agents)),
-treeType(other.treeType),
-numofinfecteds(move(other.numofinfecteds))
+Session::Session(Session &&other) noexcept: g(other.g),
+                                            treeType(other.treeType),
+                                            agents(other.agents),
+                                            infecteds(other.infecteds),
+                                            _cycleCurrNum(other._cycleCurrNum),
+                                            numofinfecteds(other.numofinfecteds)
 {other.agents.clear();}
 
 // move assigment operator
