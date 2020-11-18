@@ -17,6 +17,8 @@ const vector<vector<int>>& Graph::GetEdges() const {
 return edges;
 }
 void Graph::updateMatrix(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
+    edges.clear();
+    IsInfectedArray.clear();
     for(vector<int> edge: matrix) {
         edges.push_back(edge);
         IsInfectedArray.push_back(0);
@@ -72,15 +74,17 @@ int Graph::getNumOfVertices() const {
 
 Graph& Graph::operator=(const Graph& other)
 {
-    int verticesNum = other.edges.size();
-    for(int row=0; row < verticesNum; row= row + 1)// maybe can use assignment operator of vector class?
-    {
-        for(int column = 0; column < verticesNum; column= column + 1)
-        {
-            edges.at(row).at(column)=other.edges.at(row).at(column);
-        }
-    }
+   edges=other.edges;
     IsInfectedArray=other.IsInfectedArray;
+//    int verticesNum = other.edges.size();
+//    for(int row=0; row < verticesNum; row= row + 1)// maybe can use assignment operator of vector class?
+//    {
+//        for(int column = 0; column < verticesNum; column= column + 1)
+//        {
+//            edges.at(row).at(column)=other.edges.at(row).at(column);
+//        }
+//    }
+//    IsInfectedArray=other.IsInfectedArray;
     return *this;
 }
 

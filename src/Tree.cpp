@@ -51,15 +51,17 @@ Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
             return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
         }
     }
-    cout<<"undefiend tree type, retured Tree* nullptr"<<endl;
+    //cout<<"undefiend tree type, retured Tree* nullptr"<<endl;
     return nullptr;
 }
 
+const vector<Tree*> Tree:: getChildren() const {return this->children;}
+const int Tree:: getRootLabel() const {return this->node;}
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
-
-Tree::Tree(Tree &&other):Tree(other.node) { //TODO: test Tree move con
+// move constructor
+Tree::Tree(Tree &&other):Tree(other.node) {
     stealChildren(other);
 }
 
@@ -86,7 +88,7 @@ const Tree & Tree::operator=(const Tree &other) {
     return *this;
 }
 
-Tree & Tree::operator=(Tree &&other) {//TODO: Test Tree move Ass oprt
+Tree & Tree::operator=(Tree &&other) {
     if(this!=&other) {
         clear();
         node=other.node;
@@ -117,13 +119,11 @@ void Tree::stealChildren(Tree &other) {
 }
 
 void Tree::cloneChildren(const Tree &other) {
-    for(Tree* tree : other.children)
-    {
+    for(Tree* tree : other.children) {
         addChild(*tree);
         // children.push_back(tree->clone());
     }
 }
-
 ////CycleTree-------------
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}

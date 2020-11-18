@@ -85,8 +85,7 @@ void Session::addAgent(const Agent &agent) {
 int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
 
 //---------------------------------------------------
-
-Graph & Session::getGraphReference() {
+ Graph & Session::getGraphReference() {
     return g;
 }
 
@@ -131,25 +130,21 @@ Session & Session:: operator=(const Session& other) {
 // move constructor
 Session::Session(Session &&other) noexcept: g(other.g),
                                             treeType(other.treeType),
-                                            agents(other.agents),
+                                            agents(),
                                             infecteds(other.infecteds),
                                             _cycleCurrNum(other._cycleCurrNum),
                                             numofinfecteds(other.numofinfecteds)
-{other.agents.clear();}
-
+{stealAgents(other);}
 // move assigment operator
 Session& Session::operator=(Session&& other) noexcept {
     if (this!= &other){
         clean();
         _cycleCurrNum=other._cycleCurrNum;
         numofinfecteds=other.numofinfecteds;
-        for (unsigned int i=0; i<agents.size(); i++) {
-            *agents.at(i) = *other.agents.at(i);
-        }
-        other.agents.clear();
-        g=(move(other.g));
+        stealAgents(other);
+        g=other.g;
         treeType=other.treeType;
-        infecteds=(move(infecteds));
+        infecteds=other.infecteds;
     }
     return *this;
 }
@@ -164,13 +159,20 @@ void Session:: clean(){
     };
     g.clean();
 }
+void Session::stealAgents(Session& other){
+    for(Agent* agent: other.agents){
+        agents.push_back(agent);
+    }
+    other.agents.clear();
+}
 
 void Session:: copy(const Session& other) {
         g = other.g;
-        numofinfecteds=other.numofinfecteds;
         treeType = other.treeType;
         for (Agent* agent: other.agents) addAgent(*agent);
         infecteds= other.infecteds;
+        _cycleCurrNum=other._cycleCurrNum;
+        numofinfecteds=other.numofinfecteds;
     }
 
 const Graph &Session::getG() const {

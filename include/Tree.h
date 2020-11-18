@@ -16,15 +16,15 @@ public:
     // General Tree Methods
     void addChild(const Tree& child);
     void addRealChild(Tree& child);////Maybe Delete?
-    const vector<Tree*> getChildren();
-    const int getRootLabel();
+    const vector<Tree*> getChildren() const;
+    const int getRootLabel() const ;
     static Tree* createTree(const Session& session, int rootLabel);
     static Tree* createNodeTree(const Session& session, int rootLabel);
     virtual int traceTree()=0;
 
     //----- Rule of Five/
     Tree(const Tree &other); // copy constructor
-    Tree(Tree&& other); // move constructor TODO: deep testing
+    Tree(Tree&& other); // move constructor
     virtual Tree *clone() const = 0;
     virtual ~ Tree(); // destructor
     void clear();
