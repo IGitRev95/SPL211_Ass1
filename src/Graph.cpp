@@ -11,7 +11,7 @@
  */
 using namespace std;
 
-Graph::Graph(std::vector<std::vector<int>> matrix):edges(matrix) {};
+Graph::Graph(std::vector<std::vector<int>> matrix):edges(matrix),IsInfectedArray() {};
 
 const vector<vector<int>>& Graph::GetEdges() const {
 return edges;
