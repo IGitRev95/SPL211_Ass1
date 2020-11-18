@@ -7,34 +7,34 @@
 #include <fstream>
 #include "include/json.hpp"
 
-
 using namespace std;
 using json = nlohmann::json;
+
 void Session::simulate() {
-    bool terminate= g.isSessionDone();
+    bool termination= g.isSessionDone();
     int CurrentSize;
-    if (!terminate)
-        do {
+    while (!termination){
             CurrentSize = agents.size();
             for (int j = 0; j < CurrentSize; j = j + 1) {
                 agents.at(j)->act(*this);
             }
-            terminate = g.isSessionDone();
+            termination = g.isSessionDone();
             _cycleCurrNum = _cycleCurrNum + 1;
-        } while (!terminate);
+        }
     json output;
     output["graph"]=this->g.GetEdges();
-    output["infected"]=this->numofinfecteds;
+    output["infected"]=this->ListOfInfectedsNodes;
     ofstream o("output.json");
     o<<output;
-cout<<output<<endl;
+cout<<output<<endl; //TODO erase
 
 }
 
-Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycleCurrNum(0),numofinfecteds(0) {
+Session::Session(const string &path): g(), treeType(), agents(), InfectedsQueue(), _cycleCurrNum(0), ListOfInfectedsNodes(0) {
     json input_data;
     ifstream jasonIn(path);
     jasonIn >> input_data;
+    //list of carry nodes given to update
     vector<int> CarryNodes= {};
     int CarryNode;
     Agent* agent;
@@ -49,71 +49,70 @@ Session::Session(const string &path): g(), treeType(),agents(),infecteds(),_cycl
         addAgent(*agent);
         delete agent;
     }
-    g.updateMatrix(input_data["graph"], CarryNodes);
-    string tree= input_data["tree"].front();
+    g.updateGraph(input_data["graph"], CarryNodes);
+    initTreeType(input_data["tree"].front());
+}
+
+void Session::initTreeType(string tree) {
     if (tree=="M") treeType=MaxRank;
     if (tree == "C") treeType=Cycle;
     if (tree == "R") treeType=Root;
-    }
+}
 
 int Session::dequeueInfected() {
-    if (!infecteds.empty()) {
-        int number = infecteds.front();
-        infecteds.pop();
+    if (!InfectedsQueue.empty()) {
+        int number = InfectedsQueue.front();
+        InfectedsQueue.pop();
         return number;
     }
-    return -1;
+    return -1; // := queue is empty
 }
 
 void Session::enqueueInfected(int number) {
-    numofinfecteds.push_back(number);
-    infecteds.push(number);
+    ListOfInfectedsNodes.push_back(number);
+    InfectedsQueue.push(number);
 }
 
 TreeType Session::getTreeType() const {
     return treeType;
 }
 
-//--------------------------------------------------
+const Graph &Session::getG() const {
+    return g;
+}
+
+const int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
+
+Graph & Session::getGraphReference() {
+    return g;
+}
 
 void Session::addAgent(const Agent &agent) {
     agents.push_back(agent.clone());
 }
 
-//--------------------------------------------------
-
-int Session::get_cycleCurrNum() const {return _cycleCurrNum;}
-
-//---------------------------------------------------
- Graph & Session::getGraphReference() {
-    return g;
-}
-
-//--------------------------------------------------
-
 void Session::setGraph(const Graph &graph) {
     g = graph;
 }
 
-//---------------------------------
-
 //---- Rule of 5
+
 //destructor
 Session::~Session(){
     for (Agent* agent:agents) delete agent;
     agents.clear();
-    while (!infecteds.empty()) infecteds.pop();
+    while (!InfectedsQueue.empty()) InfectedsQueue.pop();
     g.clean();
-    numofinfecteds.clear();
+    ListOfInfectedsNodes.clear();
 }
 
 //copy constructor
 Session::Session(const Session& other): g(other.g),
                                         treeType(other.treeType),
                                         agents(),
-                                        infecteds(other.infecteds),
+                                        InfectedsQueue(other.InfectedsQueue),
                                         _cycleCurrNum(other._cycleCurrNum),
-                                        numofinfecteds(other.numofinfecteds)
+                                        ListOfInfectedsNodes(other.ListOfInfectedsNodes)
 {
     for (Agent* agent: other.agents) this->addAgent(*agent);
 }
@@ -131,34 +130,36 @@ Session & Session:: operator=(const Session& other) {
 Session::Session(Session &&other) noexcept: g(other.g),
                                             treeType(other.treeType),
                                             agents(),
-                                            infecteds(other.infecteds),
+                                            InfectedsQueue(other.InfectedsQueue),
                                             _cycleCurrNum(other._cycleCurrNum),
-                                            numofinfecteds(other.numofinfecteds)
+                                            ListOfInfectedsNodes(other.ListOfInfectedsNodes)
 {stealAgents(other);}
 // move assigment operator
 Session& Session::operator=(Session&& other) noexcept {
     if (this!= &other){
         clean();
         _cycleCurrNum=other._cycleCurrNum;
-        numofinfecteds=other.numofinfecteds;
+        ListOfInfectedsNodes=other.ListOfInfectedsNodes;
         stealAgents(other);
         g=other.g;
         treeType=other.treeType;
-        infecteds=other.infecteds;
+        InfectedsQueue=other.InfectedsQueue;
     }
     return *this;
 }
+// methodes for Rule of five
 
 void Session:: clean(){
     _cycleCurrNum=0;
-    numofinfecteds.clear();
+    ListOfInfectedsNodes.clear();
     for (Agent* agent:agents) delete agent;
     agents.clear();
-    while (!(infecteds.empty())){
-        infecteds.pop();
+    while (!(InfectedsQueue.empty())){
+        InfectedsQueue.pop();
     };
     g.clean();
 }
+
 void Session::stealAgents(Session& other){
     for(Agent* agent: other.agents){
         agents.push_back(agent);
@@ -170,14 +171,11 @@ void Session:: copy(const Session& other) {
         g = other.g;
         treeType = other.treeType;
         for (Agent* agent: other.agents) addAgent(*agent);
-        infecteds= other.infecteds;
+    InfectedsQueue= other.InfectedsQueue;
         _cycleCurrNum=other._cycleCurrNum;
-        numofinfecteds=other.numofinfecteds;
+    ListOfInfectedsNodes=other.ListOfInfectedsNodes;
     }
 
-const Graph &Session::getG() const {
-    return g;
-}
 
 
 

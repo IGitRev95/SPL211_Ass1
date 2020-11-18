@@ -42,7 +42,7 @@ const vector<int>& Graph::getEdgesOf(int v) const {
 }
 
 // changing the edges ADJ matrix and Carry nodes to the given ones
-void Graph::updateMatrix(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
+void Graph::updateGraph(const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes){
     this->clean();
     for(vector<int> edge: matrix) {
         edges.push_back(edge);

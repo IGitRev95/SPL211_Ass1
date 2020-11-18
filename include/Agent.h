@@ -33,7 +33,7 @@ public:
     Virus(int nodeInd);
     virtual void act(Session& session);
     virtual Agent* clone() const;
-    int getNumber() const;
+    const int getNodeIndex() const;
 private:
     const int nodeInd;
 };

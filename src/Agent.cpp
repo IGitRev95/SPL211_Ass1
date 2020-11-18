@@ -1,7 +1,7 @@
 //
 // Created by spl211 on 03/11/2020.
 //
-#include<iostream>
+
 #include "include/Agent.h"
 
 using namespace std;
@@ -15,11 +15,11 @@ ContactTracer:: ContactTracer(): Agent(){}
 
 void ContactTracer::act(Session &session) {
     int root = session.dequeueInfected();
-    if(root!=-1)
+    if(root!=-1) // -1:= queue is empty
     {
-        Tree *curr_infected_tree = Tree::createTree(session,root);
-        int node_to_disconnect = curr_infected_tree->traceTree();
-        session.getGraphReference().disconnectNode(node_to_disconnect);
+        Tree *curr_infected_tree = Tree::createTree(session,root); // create Bfs tree
+        int node_to_disconnect = curr_infected_tree->traceTree(); // choosing node to disconnect
+        session.getGraphReference().disconnectNode(node_to_disconnect);// disconnect chosen node
         delete curr_infected_tree;
     }
 }
@@ -34,27 +34,27 @@ Virus:: Virus(int nodeInd):nodeInd(nodeInd) {}
 void Virus::act(Session &session) {
     int v= this->nodeInd;
     Graph& current= session.getGraphReference();
-    if (!(current.isInfected(v))) {
-        current.infectNode(v);
-        session.enqueueInfected(v);
+    if (!(current.isInfected(v))) { // if the node isnt infected
+        current.infectNode(v); // let the node infected
+        session.enqueueInfected(v); // push to the queue of infecteds
     }
-    vector<int> currentNodeEdges= current.getEdgesOf(v);
-    int size= currentNodeEdges.size();
+
+    int size= current.getNumOfVertices();
     for (int i=0;i<size;i=i+1){
-        if(i!=v&& currentNodeEdges.at(i)==1&& current.getNodeStatus(i) == 0){
+        // for other virus , if connected and the other not infected
+        if(i!=v&& current.NodesAreConnected(v,i)&& current.getNodeStatus(i) == 0){
             current.MakeNodeCarry(i);
-            Virus vi=Virus(i);
-          session.addAgent(vi);
+          session.addAgent(Virus(i));
             break;
         }
     }
 }
 
 Agent* Virus::clone() const {
-    return new Virus(this->getNumber());
+    return new Virus(this->getNodeIndex());
 }
 
-int Virus::getNumber()  const {
+const int Virus::getNodeIndex()  const {
     return nodeInd;
 }
 

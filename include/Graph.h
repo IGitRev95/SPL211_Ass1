@@ -19,7 +19,7 @@ public:
     int getNodeStatus(int nodeInd); // status of virus 0:= not infected 1:= carry 2:= infected
     bool isInfected(int nodeInd);
     const std::vector<int>& getEdgesOf(int v) const;
-    void updateMatrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
+    void updateGraph (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
     Graph(const Graph& other); // copy constructor
     Graph& operator=(const Graph& other); // copy assignment operator
     void disconnectNode(int node);//disconnecting node from the graph

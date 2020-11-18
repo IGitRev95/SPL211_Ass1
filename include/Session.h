@@ -19,12 +19,15 @@ enum TreeType{
 class Session{
 public:
     void simulate();
-    Session(const std::string& path); //implemented but need to check efficiency
-    void addAgent(const Agent& agent);// implemented
-    void setGraph(const Graph& graph); // why we need this function
-    void enqueueInfected(int); // implemented
-    int dequeueInfected(); // implemented
-    TreeType getTreeType() const; // implemented
+    Session(const std::string& path);
+    void addAgent(const Agent& agent);
+    void setGraph(const Graph& graph);
+    void enqueueInfected(int);
+    int dequeueInfected();
+    TreeType getTreeType() const;
+    const int get_cycleCurrNum() const ;
+    Graph & getGraphReference();
+    const Graph &getG() const;
 
     // Rule of Five
     virtual ~ Session(); // destructor
@@ -32,25 +35,22 @@ public:
     Session & operator=(const Session& other); // copy assignment operator
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
-
-    int get_cycleCurrNum() const ;//implemented
-    Graph & getGraphReference();
-
-    const Graph &getG() const;
-
-
     void clean();
+
+
+
 
 
 private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
-    std::queue<int> infecteds;
+    std::queue<int> InfectedsQueue;
     int _cycleCurrNum;
-    std::vector<int> numofinfecteds;
+    std::vector<int> ListOfInfectedsNodes;
     void stealAgents(Session& other);
     void copy(const Session& other);
+    void initTreeType(string tree);
 };
 
 #endif
