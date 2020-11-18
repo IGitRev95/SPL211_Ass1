@@ -17,36 +17,47 @@ void Tree::addChild(const Tree &child) {
     this->children.push_back(child.clone());
 }
 
+void Tree::addRealChild(Tree &child) {
+    this->children.push_back(&child);
+}
+
 const vector<Tree*> Tree:: getChildren(){return this->children;}
 
 const int Tree:: getRootLabel(){return this->node;}
 
+Tree* Tree::createTree(const Session &session, int rootLabel){
+    //CAllBFS
+    Tree* output= createNodeTree(session,rootLabel);
+    //MEMORY LEAK OPTION
+    Graph* bfsgraph(session.getG().BFSScan(rootLabel));
+    (*output).RecursiveCreate(session,*bfsgraph);
+    delete bfsgraph;
+    return output;
+}
+
+Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
+    switch (session.getTreeType()) {
+        case Root:
+        {
+            return new RootTree(rootLabel);//Should be deleted by CT
+        }
+        case MaxRank:
+        {
+            return new MaxRankTree(rootLabel);//Should be deleted by CT
+        }
+        case Cycle:
+        {
+            return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
+        }
+    }
+}
+
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
-// move constructor
+
 Tree::Tree(Tree &&other):Tree(other.node) { //TODO: test Tree move con
     stealChildren(other);
-}
-
-void Tree::stealChildren(Tree &other) {
-    for(Tree* othertree: other.children)
-    {
-        children.push_back(othertree);
-    }
-    other.children.clear();
-}
-
-void Tree::cloneChildren(const Tree &other) {
-    for(Tree* tree : other.children)
-    {
-        addChild(*tree);
-        // children.push_back(tree->clone());
-    }
-}
-
-void Tree::addRealChild(Tree &child) {
-    this->children.push_back(&child);
 }
 
 Tree::~Tree() {
@@ -86,43 +97,31 @@ void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
     Tree* child;
     for (unsigned int i=0;i<EdgesOfNode.size();i++) {
         if (i != node && EdgesOfNode[i] == 1) {
-        child = createNodeTree(session, i);
-        (*child).RecursiveCreate(session,bfsgraph);
-        addChild(*child);
-        delete child;
-    }
+            child = createNodeTree(session, i);
+            (*child).RecursiveCreate(session,bfsgraph);
+            addChild(*child);
+            delete child;
+        }
     }
 }
 
-Tree* Tree::createTree(const Session &session, int rootLabel){
-    //CAllBFS
-    Tree* output= createNodeTree(session,rootLabel);
-    //MEMORY LEAK OPTION
-    Graph* bfsgraph(session.getG().BFSScan(rootLabel));
-    (*output).RecursiveCreate(session,*bfsgraph);
-    delete bfsgraph;
-    return output;
+void Tree::stealChildren(Tree &other) {
+    for(Tree* othertree: other.children)
+    {
+        children.push_back(othertree);
+    }
+    other.children.clear();
 }
 
-Tree * Tree::createNodeTree(const Session &session, int rootLabel) {
-    switch (session.getTreeType()) {
-        case Root:
-        {
-            return new RootTree(rootLabel);//Should be deleted by CT
-        }
-        case MaxRank:
-        {
-            return new MaxRankTree(rootLabel);//Should be deleted by CT
-        }
-        case Cycle:
-        {
-            return new CycleTree(rootLabel, session.get_cycleCurrNum());//Should be deleted by CT
-        }
+void Tree::cloneChildren(const Tree &other) {
+    for(Tree* tree : other.children)
+    {
+        addChild(*tree);
+        // children.push_back(tree->clone());
     }
 }
 
 ////CycleTree-------------
-
 
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
@@ -134,15 +133,6 @@ CycleTree::CycleTree(CycleTree &&other):CycleTree(other.node,other.currCycle){
 
 int CycleTree::traceTree() {
     return traceTreeRecursive(currCycle);
-}
-
-int CycleTree::traceTreeRecursive(int cycleCounter){
-    if(cycleCounter==0 || children.empty())
-        return node;
-    else{
-        CycleTree* child= static_cast<CycleTree *>(children.front());
-        return child->traceTreeRecursive(cycleCounter-1);
-    }
 }
 
 Tree* CycleTree::clone() const {
@@ -173,12 +163,21 @@ CycleTree & CycleTree::operator=(CycleTree &&other) {
 
 int CycleTree::getCycle() const {return currCycle;}
 
+int CycleTree::traceTreeRecursive(int cycleCounter){
+    if(cycleCounter==0 || children.empty())
+        return node;
+    else{
+        CycleTree* child= static_cast<CycleTree *>(children.front());
+        return child->traceTreeRecursive(cycleCounter-1);
+    }
+}
+
 
 ////----------------------MaxRankTree
 
 MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
 
-MaxRankTree::MaxRankTree(const MaxRankTree &other):Tree(other){}
+MaxRankTree::MaxRankTree(const MaxRankTree& other):Tree(other){}
 
 int MaxRankTree::traceTree() {
     vector<int>* maxRankNodeDetails= maxRankWinRec(0);
@@ -186,6 +185,28 @@ int MaxRankTree::traceTree() {
     int ans=maxRankNodeDetails->at(nodeIndex);
     delete maxRankNodeDetails;
     return ans;
+}
+
+Tree* MaxRankTree::clone() const {
+    return new MaxRankTree(*this);
+}
+
+const MaxRankTree & MaxRankTree::operator=(const MaxRankTree &other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        cloneChildren(other);
+    }
+    return *this;
+}
+
+MaxRankTree & MaxRankTree::operator=(MaxRankTree &&other) {
+    if(this!=&other) {
+        clear();
+        node=other.node;
+        stealChildren(other);
+    }
+    return *this;
 }
 
 std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
@@ -210,39 +231,17 @@ std::vector<int> * MaxRankTree::maxRankWinRec(int currDepth) {
             *winner=*candidate;
         }
         else if (candidate->at(nodeRank) == winner->at(nodeRank)){
-                if (candidate->at(nodeDepth) < winner->at(nodeDepth)){
+            if (candidate->at(nodeDepth) < winner->at(nodeDepth)){
+                *winner=*candidate;
+            } else if (candidate->at(nodeDepth) == winner->at(nodeDepth)){
+                if (candidate->at(nodeIndex) < winner->at(nodeIndex)){
                     *winner=*candidate;
-                } else if (candidate->at(nodeDepth) == winner->at(nodeDepth)){
-                            if (candidate->at(nodeIndex) < winner->at(nodeIndex)){
-                                *winner=*candidate;
-                            }
-                        }
+                }
+            }
         }
         delete candidate;
     }
     return winner;
-}
-
-Tree* MaxRankTree::clone() const {
-    return new MaxRankTree(*this);
-}
-
-const MaxRankTree & MaxRankTree::operator=(const MaxRankTree &other) {
-    if(this!=&other) {
-        clear();
-        node=other.node;
-        cloneChildren(other);
-    }
-    return *this;
-}
-
-MaxRankTree & MaxRankTree::operator=(MaxRankTree &&other) {
-    if(this!=&other) {
-        clear();
-        node=other.node;
-        stealChildren(other);
-    }
-    return *this;
 }
 
 ////RootTree methods implementation
