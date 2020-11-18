@@ -11,35 +11,28 @@ class Tree;
 
 class Graph {
 public:
-
-    void updateMatrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
-
     Graph();
-
     Graph(std::vector<std::vector<int>> matrix);
     const std::vector<std::vector<int>>& GetEdges() const;
     void infectNode(int nodeInd);
-    void CarryNode(int nodeInd);
-    int NodeStatus(int nodeInd);
+    void MakeNodeCarry(int nodeInd); // make node carry
+    int getNodeStatus(int nodeInd); // status of virus 0:= not infected 1:= carry 2:= infected
     bool isInfected(int nodeInd);
+    const std::vector<int>& getEdgesOf(int v) const;
+    void updateMatrix (const std::vector<std::vector<int>>& matrix, const std::vector<int>& CarryNodes);
     Graph(const Graph& other); // copy constructor
     Graph& operator=(const Graph& other); // copy assignment operator
-    void disconnect(int node);//disconnecting node from the graph
+    void disconnectNode(int node);//disconnecting node from the graph
     int getNumOfVertices() const;
-    void clean();
-    const std::vector<int>& getEdgesOf(int v) const;
-
-//    std::vector<std::vector<int>> BFSScan(int rootNode) const;
+    bool NodesAreConnected(int v1, int v2) const;
+    bool isSessionDone(); // checking if the session meeting termination conditions
     Graph* BFSScan(int rootNode) const;
-    Graph* BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const;
-
-    bool SessionDone(); // checking if the Session done
-    bool Connected(int v1,int v2) const;
+    void clean();
 
 private:
     std::vector<std::vector<int>> edges;
     std::vector<int> IsInfectedArray;
-
+    Graph* BFSDataToGraph(std::vector<std::vector<int>> BFSdata) const;
 };
 
 #endif

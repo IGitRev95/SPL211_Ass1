@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 
     Session sess5= Session(argv[1]);
     Session sess4= Session(argv[1]);
-    sess4.getGraphReference().disconnect(0);
+    sess4.getGraphReference().disconnectNode(0);
     sess4=sess5;
     sess4.simulate();
 

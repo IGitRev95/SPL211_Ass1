@@ -11,7 +11,7 @@
 using namespace std;
 using json = nlohmann::json;
 void Session::simulate() {
-    bool terminate= g.SessionDone();
+    bool terminate= g.isSessionDone();
     int CurrentSize;
     if (!terminate)
         do {
@@ -19,7 +19,7 @@ void Session::simulate() {
             for (int j = 0; j < CurrentSize; j = j + 1) {
                 agents.at(j)->act(*this);
             }
-            terminate = g.SessionDone();
+            terminate = g.isSessionDone();
             _cycleCurrNum = _cycleCurrNum + 1;
         } while (!terminate);
     json output;

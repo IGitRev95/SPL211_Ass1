@@ -19,7 +19,7 @@ void ContactTracer::act(Session &session) {
     {
         Tree *curr_infected_tree = Tree::createTree(session,root);
         int node_to_disconnect = curr_infected_tree->traceTree();
-        session.getGraphReference().disconnect(node_to_disconnect);
+        session.getGraphReference().disconnectNode(node_to_disconnect);
         delete curr_infected_tree;
     }
 }
@@ -41,8 +41,8 @@ void Virus::act(Session &session) {
     vector<int> currentNodeEdges= current.getEdgesOf(v);
     int size= currentNodeEdges.size();
     for (int i=0;i<size;i=i+1){
-        if(i!=v&& currentNodeEdges.at(i)==1&&current.NodeStatus(i)==0){
-          current.CarryNode(i);
+        if(i!=v&& currentNodeEdges.at(i)==1&& current.getNodeStatus(i) == 0){
+            current.MakeNodeCarry(i);
             Virus vi=Virus(i);
           session.addAgent(vi);
             break;
