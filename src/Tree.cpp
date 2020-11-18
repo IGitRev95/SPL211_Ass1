@@ -96,7 +96,7 @@ void Tree::RecursiveCreate(const Session& session,const Graph& bfsgraph) {
     vector<int> EdgesOfNode= bfsgraph.getEdgesOf(this->node);
     Tree* child;
     for (unsigned int i=0;i<EdgesOfNode.size();i++) {
-        if (i != node && EdgesOfNode[i] == 1) {
+        if (i != (unsigned int)node && EdgesOfNode[i] == 1) {
             child = createNodeTree(session, i);
             (*child).RecursiveCreate(session,bfsgraph);
             addChild(*child);
