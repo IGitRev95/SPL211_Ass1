@@ -16,8 +16,8 @@ Tree::Tree(int rootLabel):node(rootLabel),children(){}
 void Tree::addChild(const Tree &child) {
     this->children.push_back(child.clone());
 }
-const vector<Tree*> Tree:: getChildren(){return this->children;}
-const int Tree:: getRootLabel(){return this->node;}
+vector<Tree*> Tree:: getChildren() const {return this->children;}
+int Tree:: getRootLabel() const {return this->node;}
 Tree::Tree(const Tree &other): Tree(other.node){
     cloneChildren(other);
 }
@@ -42,9 +42,9 @@ void Tree::cloneChildren(const Tree &other) {
     }
 }
 
-void Tree::addRealChild(Tree &child) {
-    this->children.push_back(&child);
-}
+//void Tree::addRealChild(Tree &child) const{
+//    this->children.push_back(&child);
+//}
 
 Tree::~Tree() {
     if(!children.empty())
@@ -142,7 +142,6 @@ Tree* Tree::createTree(const Session &session, int rootLabel){
 //        if(-1==bfsData.at(i).at(2))
 //            delete nodes_control.at(i);
 //    }
-    Tree* ans();
     delete bfsgraph;
     return output;
 }

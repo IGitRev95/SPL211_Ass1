@@ -21,7 +21,6 @@ public:
     void simulate();
     Session(const std::string& path); //implemented but need to check efficiency
     void addAgent(const Agent& agent);// implemented
-   // void addAgent(Agent&& other);
     void setGraph(const Graph& graph); // why we need this function
     void enqueueInfected(int); // implemented
     int dequeueInfected(); // implemented
@@ -33,8 +32,6 @@ public:
     Session & operator=(const Session& other); // copy assignment operator
     Session(Session&& other) noexcept; // move constructor
     Session& operator=(Session&& other) noexcept; // move assigment operator
-    void copy(const Session& other);
-
 
     int get_cycleCurrNum() const ;//implemented
     Graph & getGraphReference();
@@ -52,6 +49,8 @@ private:
     std::queue<int> infecteds;
     int _cycleCurrNum;
     std::vector<int> numofinfecteds;
+    void stealAgents(Session& other);
+    void copy(const Session& other);
 };
 
 #endif

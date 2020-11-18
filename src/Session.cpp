@@ -104,37 +104,39 @@ _cycleCurrNum(other._cycleCurrNum),
 numofinfecteds(other.numofinfecteds)
 {
     for (Agent* agent: other.agents) this->addAgent(*agent);
+    cout<<"using copy constructor"<<endl;
 }
 //copy assigment operator
 Session & Session:: operator=(const Session& other) {
     if (this != &other) {
     clean();
     copy(other);
+    cout<<"sucsess below"<<endl;
 }
+    cout<<"copy assigment operator"<<endl;
     return (*this);
 }
 // move constructor
-Session::Session(Session &&other) noexcept: g(move(other.g)),
-infecteds(move(other.infecteds)),
+Session::Session(Session &&other) noexcept: g((other.g)),
+infecteds(other.infecteds),
 _cycleCurrNum(other._cycleCurrNum),
-agents(move(other.agents)),
 treeType(other.treeType),
-numofinfecteds(move(other.numofinfecteds))
-{other.agents.clear();}
+numofinfecteds(other.numofinfecteds)
+{stealAgents(other);
+cout<<"using move constructor"<<endl;}
 // move assigment operator
 Session& Session::operator=(Session&& other) noexcept {
     if (this!= &other){
         clean();
         _cycleCurrNum=other._cycleCurrNum;
         numofinfecteds=other.numofinfecteds;
-        for (int i=0; i<agents.size(); i++) {
-            *agents.at(i) = *other.agents.at(i);
-        }
-        other.agents.clear();
-        g=(move(other.g));
+        stealAgents(other);
+        g=other.g;
         treeType=other.treeType;
-        infecteds=(move(infecteds));
+        infecteds=other.infecteds;
+        cout<<"sucsses below"<<endl;
     }
+    cout<<"using move assigment operator"<<endl;
     return *this;
 }
 
@@ -148,14 +150,20 @@ void Session:: clean(){
     };
     g.clean();
 }
-
+void Session::stealAgents(Session& other){
+    for(Agent* agent: other.agents){
+        agents.push_back(agent);
+    }
+    other.agents.clear();
+}
 
 void Session:: copy(const Session& other) {
         g = other.g;
-        numofinfecteds=other.numofinfecteds;
         treeType = other.treeType;
         for (Agent* agent: other.agents) addAgent(*agent);
         infecteds= other.infecteds;
+        _cycleCurrNum=other._cycleCurrNum;
+        numofinfecteds=other.numofinfecteds;
     }
 
 const Graph &Session::getG() const {

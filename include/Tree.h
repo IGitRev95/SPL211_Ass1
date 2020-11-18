@@ -14,9 +14,9 @@ public:
     //Tree(int node, const std::vector<Tree *> &children);
 
     void addChild(const Tree& child);
-    void addRealChild(Tree& child);
-    const vector<Tree*> getChildren();
-    const int getRootLabel();
+//    void addRealChild(Tree& child) const;
+    vector<Tree*> getChildren() const ;
+    int getRootLabel() const;
     static Tree* createTree(const Session& session, int rootLabel);
     static Tree* createNodeTree(const Session& session, int rootLabel);
 
