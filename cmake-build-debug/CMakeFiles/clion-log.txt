@@ -1,8 +1,4 @@
 /snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/spl211/SPL-Ass/Ass1-new
-CMake Error at CMakeLists.txt:18:
-  Parse error.  Expected a command name, got unquoted argument with text
-  "=======".
-
-
--- Configuring incomplete, errors occurred!
-See also "/home/spl211/SPL-Ass/Ass1-new/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/spl211/SPL-Ass/Ass1-new/cmake-build-debug
