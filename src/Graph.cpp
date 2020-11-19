@@ -61,15 +61,6 @@ Graph& Graph::operator=(const Graph& other)
 {
     edges=other.edges;
     IsInfectedArray=other.IsInfectedArray;
-//    int verticesNum = other.edges.size();
-//    for(int row=0; row < verticesNum; row= row + 1)// maybe can use assignment operator of vector class?
-//    {
-//        for(int column = 0; column < verticesNum; column= column + 1)
-//        {
-//            edges.at(row).at(column)=other.edges.at(row).at(column);
-//        }
-//    }
-//    IsInfectedArray=other.IsInfectedArray;
     return *this;
 }
 
