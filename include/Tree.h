@@ -42,13 +42,13 @@ class CycleTree: public Tree{
 public:
 
     CycleTree(int rootLabel, int currCycle); // constructor
-    CycleTree(const CycleTree& other); // copy constructor
-    CycleTree(CycleTree&& other); // move constructor
+//    CycleTree(const CycleTree& other); // copy constructor
+//    CycleTree(CycleTree&& other); // move constructor
     virtual int traceTree();
     virtual Tree *clone() const ;
-    virtual ~ CycleTree() = default; // destructor
-    const CycleTree& operator=(const CycleTree& other); // Ass oprt
-    CycleTree& operator=(CycleTree&& other); // move Ass oprt
+//    virtual ~ CycleTree() = default; // destructor
+//    const CycleTree& operator=(const CycleTree& other); // Ass oprt
+//    CycleTree& operator=(CycleTree&& other); // move Ass oprt
     int getCycle()const ;
     int traceTreeRecursive(int cycleCounter);
 
@@ -62,13 +62,13 @@ class MaxRankTree: public Tree{
 public:
 
     MaxRankTree(int rootLabel);
-    MaxRankTree(const MaxRankTree& other); // copy constructor
-    MaxRankTree(MaxRankTree&& other) = default; // move constructor
+//    MaxRankTree(const MaxRankTree& other); // copy constructor
+//    MaxRankTree(MaxRankTree&& other) = default; // move constructor
     virtual int traceTree();
     virtual Tree *clone() const ;
-    virtual ~ MaxRankTree() = default; // destructor
-    const MaxRankTree& operator=(const MaxRankTree& other) ; // Ass oprt
-    MaxRankTree& operator=(MaxRankTree&& other); // move Ass oprt
+//    virtual ~ MaxRankTree() = default; // destructor
+//    const MaxRankTree& operator=(const MaxRankTree& other) ; // Ass oprt
+//    MaxRankTree& operator=(MaxRankTree&& other); // move Ass oprt
     std::vector<int>* maxRankWinRec(int depth);
 
 };
@@ -77,13 +77,13 @@ class RootTree: public Tree{
 public:
 
     RootTree(int rootLabel); // constructor
-    RootTree(const RootTree& other); // copy constructor
-    RootTree(RootTree&& other) = default; // move constructor
+//    RootTree(const RootTree& other); // copy constructor
+//    RootTree(RootTree&& other) = default; // move constructor
     virtual int traceTree();
     virtual Tree *clone() const ;
-    virtual ~ RootTree() = default; // destructor
-    const RootTree& operator=(const RootTree& other);// Ass oprt
-    RootTree& operator=(RootTree&& other); // move Ass oprt
+//    virtual ~ RootTree() = default; // destructor
+//    const RootTree& operator=(const RootTree& other);// Ass oprt
+//    RootTree& operator=(RootTree&& other); // move Ass oprt
 
 };
 
